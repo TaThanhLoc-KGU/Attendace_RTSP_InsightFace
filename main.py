@@ -395,9 +395,6 @@ On Windows, ensure you have a complete Python installation.
             if not self.check_system_requirements():
                 return 1
 
-            if not self.check_requirements():
-                return 1
-
             # Show splash screen
             splash = self.show_splash_screen()
 

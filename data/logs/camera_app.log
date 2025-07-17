@@ -306,3 +306,76 @@
 2025-07-17 17:41:46,113 - camera_app - [32mINFO[0m - 👋 Application closed normally
 2025-07-17 17:41:46,113 - camera_app - [32mINFO[0m - 👋 Application closing
 2025-07-17 17:41:46,114 - camera_app - [31mERROR[0m - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-07-17 22:19:24,902 - camera_app - [32mINFO[0m - 🚀 Starting Student Attendance System
+2025-07-17 22:19:24,903 - camera_app - [32mINFO[0m - 📂 Project root: /home/loki/Desktop/camera_rtsp_app
+2025-07-17 22:19:24,903 - camera_app - [32mINFO[0m - 🐍 Python version: 3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m - 💻 Platform: linux
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m - 🎯 Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m - ⚙️ Configuration:
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.5
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m -   - Frame processing interval: 3
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-07-17 22:19:24,904 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-07-17 22:19:24,905 - camera_app - [32mINFO[0m - 📂 No cache found, will sync from backend
+2025-07-17 22:19:27,296 - camera_app - [32mINFO[0m - 🚀 Main window initialized with auto-start
+2025-07-17 22:19:27,297 - camera_app - [32mINFO[0m - ✅ GUI created successfully
+2025-07-17 22:19:28,496 - camera_app - [32mINFO[0m - 🎬 Starting GUI event loop
+2025-07-17 22:24:32,449 - camera_app - [32mINFO[0m - 👋 Application closing
+2025-07-17 22:24:32,521 - camera_app - [32mINFO[0m - 👋 Application closed normally
+2025-07-17 22:24:32,522 - camera_app - [32mINFO[0m - 👋 Application closing
+2025-07-17 22:24:32,524 - camera_app - [31mERROR[0m - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-07-17 22:49:02,514 - camera_app - [32mINFO[0m - 🚀 Starting Student Attendance System
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m - 📂 Project root: /home/loki/Desktop/camera_rtsp_app
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m - 🐍 Python version: 3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m - 💻 Platform: linux
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m - 🎯 Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m - ⚙️ Configuration:
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.5
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m -   - Frame processing interval: 3
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-07-17 22:49:02,516 - camera_app - [32mINFO[0m - 📂 No cache found, will sync from backend
+2025-07-17 22:49:07,174 - camera_app - [32mINFO[0m - 🚀 Main window initialized with auto-start
+2025-07-17 22:49:07,174 - camera_app - [32mINFO[0m - ✅ GUI created successfully
+2025-07-17 22:49:08,317 - camera_app - [32mINFO[0m - 🎬 Starting GUI event loop
+2025-07-17 22:53:30,456 - camera_app - [32mINFO[0m - 👋 Application closing
+2025-07-17 22:53:30,550 - camera_app - [32mINFO[0m - 👋 Application closed normally
+2025-07-17 22:53:31,899 - camera_app - [32mINFO[0m - 👋 Application closing
+2025-07-17 22:53:31,900 - camera_app - [31mERROR[0m - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-07-17 23:05:47,469 - camera_app - [31mERROR[0m - ❌ Fatal error: module 'onnxruntime' has no attribute 'InferenceSession'
+2025-07-17 23:05:47,469 - camera_app - [31mERROR[0m - Traceback (most recent call last):
+  File "/home/loki/Desktop/camera_rtsp_app/main.py", line 398, in run
+    if not self.check_requirements():
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/loki/Desktop/camera_rtsp_app/main.py", line 130, in check_requirements
+    __import__(package_name)
+  File "/home/loki/Desktop/camera_rtsp_app/.venv/lib/python3.12/site-packages/insightface/__init__.py", line 16, in <module>
+    from . import model_zoo
+  File "/home/loki/Desktop/camera_rtsp_app/.venv/lib/python3.12/site-packages/insightface/model_zoo/__init__.py", line 1, in <module>
+    from .model_zoo import get_model
+  File "/home/loki/Desktop/camera_rtsp_app/.venv/lib/python3.12/site-packages/insightface/model_zoo/model_zoo.py", line 22, in <module>
+    class PickableInferenceSession(onnxruntime.InferenceSession):
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'onnxruntime' has no attribute 'InferenceSession'
+
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - 🚀 Starting Student Attendance System
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - 📂 Project root: /home/loki/Desktop/camera_rtsp_app
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - 🐍 Python version: 3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - 💻 Platform: linux
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - 🎯 Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - ⚙️ Configuration:
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.5
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m -   - Frame processing interval: 3
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-07-17 23:07:16,672 - camera_app - [32mINFO[0m - 📂 No cache found, will sync from backend
+2025-07-17 23:07:19,008 - camera_app - [32mINFO[0m - 🚀 Main window initialized with auto-start
+2025-07-17 23:07:19,008 - camera_app - [32mINFO[0m - ✅ GUI created successfully
+2025-07-17 23:07:20,107 - camera_app - [32mINFO[0m - 🎬 Starting GUI event loop
+2025-07-18 01:22:21,449 - camera_app - [32mINFO[0m - 👋 Application closing
+2025-07-18 01:22:21,468 - camera_app - [32mINFO[0m - 👋 Application closed normally
+2025-07-18 01:22:22,485 - camera_app - [32mINFO[0m - 👋 Application closing
+2025-07-18 01:22:22,486 - camera_app - [31mERROR[0m - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed

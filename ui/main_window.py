@@ -9,8 +9,7 @@ from typing import Dict, Optional
 from services import BackendAPI, CameraService, FaceRecognitionService, Camera
 from ui.camera_dialog import CameraSelectionDialog
 from ui.stream_widget import CameraStreamWidget
-from services.advanced_face_service import AdvancedFaceService
-from ui.advanced_stream_widget import AdvancedCameraStreamWidget
+from ui.face_manager import FaceManagerDialog
 from config.config import config
 from utils.logger import ui_logger, app_logger
 
@@ -37,7 +36,7 @@ class MainWindow:
         # Initialize services
         self.backend_api = BackendAPI()
         self.camera_service = CameraService(self.backend_api)
-        self.face_service = AdvancedFaceService()
+        self.face_service = FaceRecognitionService(self.backend_api)
 
         # Setup UI in proper order - CRITICAL
         self.setup_window()
@@ -496,7 +495,8 @@ class MainWindow:
             self.notebook.add(tab_frame, text=tab_name)
 
             # CRITICAL FIX: Create camera stream widget with proper parent
-            stream_widget = AdvancedCameraStreamWidget(tab_frame, camera, self.face_service)
+            stream_widget = CameraStreamWidget(tab_frame, camera, self.face_service)
+            self.active_streams[camera.id] = stream_widget
 
             # Select new tab
             self.notebook.select(tab_frame)
