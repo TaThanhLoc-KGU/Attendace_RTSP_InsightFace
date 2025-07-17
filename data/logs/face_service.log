@@ -1,0 +1,4 @@
+2025-07-17 15:59:51,660 - face_service - [32mINFO[0m - 🔍 Initializing InsightFace...
+2025-07-17 15:59:53,942 - face_service - [32mINFO[0m - ✅ InsightFace initialized successfully
+2025-07-17 15:59:53,942 - face_service - [32mINFO[0m - 📁 No face database found, creating new one
+2025-07-17 15:59:53,943 - face_service - [32mINFO[0m - 💾 Face database saved successfully

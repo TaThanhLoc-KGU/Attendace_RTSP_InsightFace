@@ -1,0 +1,13 @@
+2025-07-17 15:46:43,949 - __main__ - INFO - 🔍 Initializing InsightFace...
+2025-07-17 15:46:45,915 - __main__ - INFO - ✅ InsightFace initialized successfully
+2025-07-17 15:46:45,915 - __main__ - INFO - 📁 No face database found, creating new one
+2025-07-17 15:46:46,072 - __main__ - INFO - ✅ Loaded camera: A501 - rtsp://admin:24082003Tl@192.16...
+2025-07-17 15:46:46,072 - __main__ - INFO - ✅ Loaded 1 valid cameras
+2025-07-17 15:46:46,074 - __main__ - INFO - ✅ Successfully loaded 1 cameras
+2025-07-17 15:46:46,074 - __main__ - INFO - 🚀 Starting Camera RTSP Application
+2025-07-17 15:46:48,742 - __main__ - INFO - ✅ Loaded camera: A501 - rtsp://admin:24082003Tl@192.16...
+2025-07-17 15:46:48,742 - __main__ - INFO - ✅ Loaded 1 valid cameras
+2025-07-17 15:46:48,742 - __main__ - INFO - ✅ Successfully loaded 1 cameras
+2025-07-17 15:47:01,412 - __main__ - INFO - ✅ Created stream for camera: A501
+2025-07-17 15:47:06,548 - __main__ - INFO - ✅ Started streaming camera: A501
+2025-07-17 15:48:22,881 - __main__ - INFO - 👋 Application closed

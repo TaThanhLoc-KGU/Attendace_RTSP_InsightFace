@@ -1,0 +1,12 @@
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m - 🚀 Starting Camera RTSP Application
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m - 📂 Project root: /home/loki/Desktop/camera_rtsp_app
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m - 🐍 Python version: 3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m - 💻 Platform: linux
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m - ⚙️ Configuration:
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.6
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m -   - Frame processing interval: 3
+2025-07-17 15:59:51,644 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-07-17 15:59:53,972 - camera_app - [32mINFO[0m - 🚀 Main window initialized
+2025-07-17 15:59:53,972 - camera_app - [32mINFO[0m - ✅ GUI created successfully
+2025-07-17 15:59:53,972 - camera_app - [32mINFO[0m - 🎬 Starting GUI event loop

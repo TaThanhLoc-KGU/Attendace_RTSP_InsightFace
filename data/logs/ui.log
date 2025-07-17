@@ -1,0 +1,35 @@
+2025-07-17 15:59:59,317 - ui - [32mINFO[0m - 📹 Camera selection dialog created
+2025-07-17 15:59:59,375 - ui - [32mINFO[0m - 📹 Loaded 1 cameras in dialog
+2025-07-17 16:00:00,721 - ui - [32mINFO[0m - ✅ Selected camera: A501
+2025-07-17 16:00:00,734 - ui - [32mINFO[0m - 📹 Created stream widget for camera: A501
+2025-07-17 16:00:00,734 - ui - [32mINFO[0m - ✅ Created stream for camera: A501
+2025-07-17 16:00:02,885 - ui - [32mINFO[0m - 🎬 Starting stream for camera: A501
+2025-07-17 16:00:04,570 - ui - [32mINFO[0m - 📺 Camera resolution: 2560x1440
+2025-07-17 16:00:04,571 - ui - [32mINFO[0m - 🎥 Video loop started for camera: A501
+2025-07-17 16:00:04,571 - ui - [32mINFO[0m - ✅ Started streaming camera: A501
+2025-07-17 16:00:04,850 - ui - [31mERROR[0m - ❌ Error in video loop: '>' not supported between instances of 'NoneType' and 'int'
+2025-07-17 16:00:04,851 - ui - [32mINFO[0m - 🎬 Video loop ended for camera: A501
+2025-07-17 16:00:04,862 - ui - [32mINFO[0m - ⏹️ Stopped streaming camera: A501
+2025-07-17 16:00:09,818 - ui - [32mINFO[0m - 🎬 Starting stream for camera: A501
+2025-07-17 16:00:11,480 - ui - [32mINFO[0m - 📺 Camera resolution: 2560x1440
+2025-07-17 16:00:11,481 - ui - [32mINFO[0m - 🎥 Video loop started for camera: A501
+2025-07-17 16:00:11,481 - ui - [32mINFO[0m - ✅ Started streaming camera: A501
+2025-07-17 16:00:11,715 - ui - [31mERROR[0m - ❌ Error in video loop: '>' not supported between instances of 'NoneType' and 'int'
+2025-07-17 16:00:11,715 - ui - [32mINFO[0m - 🎬 Video loop ended for camera: A501
+2025-07-17 16:00:11,742 - ui - [32mINFO[0m - ⏹️ Stopped streaming camera: A501
+2025-07-17 16:00:13,896 - ui - [32mINFO[0m - 🎬 Starting stream for camera: A501
+2025-07-17 16:00:15,436 - ui - [32mINFO[0m - 📺 Camera resolution: 2560x1440
+2025-07-17 16:00:15,436 - ui - [32mINFO[0m - 🎥 Video loop started for camera: A501
+2025-07-17 16:00:15,436 - ui - [32mINFO[0m - ✅ Started streaming camera: A501
+2025-07-17 16:00:15,662 - ui - [31mERROR[0m - ❌ Error in video loop: '>' not supported between instances of 'NoneType' and 'int'
+2025-07-17 16:00:15,663 - ui - [32mINFO[0m - 🎬 Video loop ended for camera: A501
+2025-07-17 16:00:15,668 - ui - [32mINFO[0m - ⏹️ Stopped streaming camera: A501
+2025-07-17 16:00:27,354 - ui - [32mINFO[0m - 🔍 Face recognition enabled for camera: A501
+2025-07-17 16:00:30,080 - ui - [32mINFO[0m - 🔍 Face recognition enabled for camera: A501
+2025-07-17 16:00:31,440 - ui - [32mINFO[0m - 🎬 Starting stream for camera: A501
+2025-07-17 16:00:33,058 - ui - [32mINFO[0m - 📺 Camera resolution: 2560x1440
+2025-07-17 16:00:33,058 - ui - [32mINFO[0m - 🎥 Video loop started for camera: A501
+2025-07-17 16:00:33,058 - ui - [32mINFO[0m - ✅ Started streaming camera: A501
+2025-07-17 16:00:33,312 - ui - [31mERROR[0m - ❌ Error in video loop: '>' not supported between instances of 'NoneType' and 'int'
+2025-07-17 16:00:33,312 - ui - [32mINFO[0m - 🎬 Video loop ended for camera: A501
+2025-07-17 16:00:33,319 - ui - [32mINFO[0m - ⏹️ Stopped streaming camera: A501
