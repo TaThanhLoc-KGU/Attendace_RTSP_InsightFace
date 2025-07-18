@@ -9,7 +9,6 @@ from typing import Dict, Optional
 from services import BackendAPI, CameraService, FaceRecognitionService, Camera
 from ui.camera_dialog import CameraSelectionDialog
 from ui.stream_widget import CameraStreamWidget
-from ui.face_manager import FaceManagerDialog
 from config.config import config
 from utils.logger import ui_logger, app_logger
 
@@ -496,7 +495,6 @@ class MainWindow:
 
             # CRITICAL FIX: Create camera stream widget with proper parent
             stream_widget = CameraStreamWidget(tab_frame, camera, self.face_service)
-            self.active_streams[camera.id] = stream_widget
 
             # Select new tab
             self.notebook.select(tab_frame)
