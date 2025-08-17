@@ -12,7 +12,14 @@ load_dotenv()
 
 class Config:
     """Application configuration - OPTIMIZED FOR PERFORMANCE"""
+    # Authentication Settings
+    BACKEND_USERNAME = os.getenv('BACKEND_USERNAME', 'admin')
+    BACKEND_PASSWORD = os.getenv('BACKEND_PASSWORD', 'admin@123')
+    AUTO_LOGIN = bool(os.getenv('AUTO_LOGIN', 'true').lower() == 'true')
 
+    # Login retry settings
+    LOGIN_RETRY_ATTEMPTS = int(os.getenv('LOGIN_RETRY_ATTEMPTS', '3'))
+    LOGIN_RETRY_DELAY = int(os.getenv('LOGIN_RETRY_DELAY', '2'))  # seconds
     # Paths
     BASE_DIR = Path(__file__).parent.parent
     DATA_DIR = BASE_DIR / "data"

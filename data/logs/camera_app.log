@@ -632,3 +632,131 @@ TypeError: FaceRecognitionService.__init__() missing 1 required positional argum
 2025-07-18 10:16:52,692 - camera_app - [32mINFO[0m - 🚀 Main window initialized with auto-start
 2025-07-18 10:16:52,692 - camera_app - [32mINFO[0m - ✅ GUI created successfully
 2025-07-18 10:16:53,773 - camera_app - [32mINFO[0m - 🎬 Starting GUI event loop
+2025-08-07 00:33:46,523 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 00:33:46,523 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 00:33:46,523 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 00:33:46,524 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 00:33:46,524 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 00:37:13,918 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 00:37:13,918 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 00:37:13,919 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 00:37:13,919 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 00:37:13,919 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 00:53:21,555 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 00:53:21,555 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 00:53:21,556 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 00:53:21,556 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 00:53:21,556 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 19:46:57,520 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 19:46:57,522 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 19:46:57,522 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 19:46:57,522 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 19:46:57,523 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 19:49:12,677 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 19:49:12,677 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 19:49:12,677 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 19:49:12,677 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 19:49:12,677 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 19:53:57,759 - camera_app - [32mINFO[0m - [START] Starting Student Attendance System
+2025-08-07 19:53:57,760 - camera_app - [32mINFO[0m - [FOLDER] Project root: D:\LuanVan\camera_rtsp_app
+2025-08-07 19:53:57,760 - camera_app - [32mINFO[0m - [PYTHON] Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-07 19:53:57,761 - camera_app - [32mINFO[0m - [LAPTOP] Platform: win32
+2025-08-07 19:53:57,761 - camera_app - [32mINFO[0m - [TARGET] Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-07 19:53:57,761 - camera_app - [32mINFO[0m - [CONFIG] Configuration:
+2025-08-07 19:53:57,762 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 19:53:57,762 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 19:53:57,763 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 19:53:57,764 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 19:53:57,778 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 19:53:57,780 - camera_app - [32mINFO[0m - [FOLDER] No cache found, will sync from backend
+2025-08-07 19:54:04,339 - camera_app - [32mINFO[0m - [START] Main window initialized with auto-start
+2025-08-07 19:54:04,340 - camera_app - [32mINFO[0m - [OK] GUI created successfully
+2025-08-07 19:54:05,843 - camera_app - [32mINFO[0m - [VIDEO] Starting GUI event loop
+2025-08-07 19:59:14,382 - camera_app - [31mERROR[0m - [ERROR] Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-07 20:02:22,371 - camera_app - [32mINFO[0m - [START] Starting Student Attendance System
+2025-08-07 20:02:22,371 - camera_app - [32mINFO[0m - [FOLDER] Project root: D:\LuanVan\camera_rtsp_app
+2025-08-07 20:02:22,371 - camera_app - [32mINFO[0m - [PYTHON] Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-07 20:02:22,371 - camera_app - [32mINFO[0m - [LAPTOP] Platform: win32
+2025-08-07 20:02:22,371 - camera_app - [32mINFO[0m - [TARGET] Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-07 20:02:22,372 - camera_app - [32mINFO[0m - [CONFIG] Configuration:
+2025-08-07 20:02:22,372 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 20:02:22,372 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 20:02:22,372 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 20:02:22,372 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 20:02:22,372 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 20:02:22,373 - camera_app - [32mINFO[0m - [FOLDER] No cache found, will sync from backend
+2025-08-07 20:02:27,582 - camera_app - [32mINFO[0m - [START] Main window initialized with auto-start
+2025-08-07 20:02:27,583 - camera_app - [32mINFO[0m - [OK] GUI created successfully
+2025-08-07 20:02:28,925 - camera_app - [32mINFO[0m - [VIDEO] Starting GUI event loop
+2025-08-07 20:05:51,385 - camera_app - [32mINFO[0m - [START] Starting Student Attendance System
+2025-08-07 20:05:51,387 - camera_app - [32mINFO[0m - [FOLDER] Project root: D:\LuanVan\camera_rtsp_app
+2025-08-07 20:05:51,387 - camera_app - [32mINFO[0m - [PYTHON] Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-07 20:05:51,388 - camera_app - [32mINFO[0m - [LAPTOP] Platform: win32
+2025-08-07 20:05:51,388 - camera_app - [32mINFO[0m - [TARGET] Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-07 20:05:51,389 - camera_app - [32mINFO[0m - [CONFIG] Configuration:
+2025-08-07 20:05:51,389 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 20:05:51,389 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 20:05:51,389 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 20:05:51,390 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 20:05:51,390 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 20:05:51,394 - camera_app - [32mINFO[0m - [FOLDER] No cache found, will sync from backend
+2025-08-07 20:06:23,122 - camera_app - [32mINFO[0m - [START] Main window initialized with auto-start
+2025-08-07 20:06:23,126 - camera_app - [32mINFO[0m - [OK] GUI created successfully
+2025-08-07 20:06:25,540 - camera_app - [32mINFO[0m - [VIDEO] Starting GUI event loop
+2025-08-07 20:13:31,260 - camera_app - [32mINFO[0m - [START] Starting Student Attendance System
+2025-08-07 20:13:31,261 - camera_app - [32mINFO[0m - [FOLDER] Project root: D:\LuanVan\camera_rtsp_app
+2025-08-07 20:13:31,261 - camera_app - [32mINFO[0m - [PYTHON] Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-07 20:13:31,262 - camera_app - [32mINFO[0m - [LAPTOP] Platform: win32
+2025-08-07 20:13:31,262 - camera_app - [32mINFO[0m - [TARGET] Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-07 20:13:31,262 - camera_app - [32mINFO[0m - [CONFIG] Configuration:
+2025-08-07 20:13:31,263 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 20:13:31,263 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 20:13:31,263 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 20:13:31,264 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 20:13:31,264 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 20:13:31,266 - camera_app - [32mINFO[0m - [FOLDER] No cache found, will sync from backend
+2025-08-07 20:13:43,977 - camera_app - [32mINFO[0m - [START] Main window initialized with auto-start
+2025-08-07 20:13:43,978 - camera_app - [32mINFO[0m - [OK] GUI created successfully
+2025-08-07 20:13:46,252 - camera_app - [32mINFO[0m - [VIDEO] Starting GUI event loop
+2025-08-07 20:21:22,037 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 20:21:22,038 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 20:21:22,038 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 20:21:22,038 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 20:21:22,039 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 20:29:57,975 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 20:29:57,975 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 20:29:57,976 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 20:29:57,976 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 20:29:57,976 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 23:20:54,320 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 23:20:54,320 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 23:20:54,320 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 23:20:54,321 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 23:20:54,321 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 23:22:29,877 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 23:22:29,878 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 23:22:29,878 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 23:22:29,878 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 23:22:29,878 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-07 23:41:17,361 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-07 23:41:17,361 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-07 23:41:17,361 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-07 23:41:17,362 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-07 23:41:17,362 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-17 15:12:21,229 - camera_app - [31mERROR[0m - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 216, in setup_environment
+    config.create_directories()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Config' object has no attribute 'create_directories'
+
+2025-08-17 15:12:48,041 - camera_app - [31mERROR[0m - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 216, in setup_environment
+    config.create_directories()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Config' object has no attribute 'create_directories'
+
+2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Backend URL: http://localhost:8080/api
+2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Recognition threshold: 0.45
+2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
+2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
+2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings

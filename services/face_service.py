@@ -292,7 +292,7 @@ class FaceRecognitionService:
         # Performance-optimized configuration
         self.tracking_config = {
             'track_thresh': config.TRACK_MATCH_THRESHOLD,
-            'match_thresh': 0.65,  # Lower for better matching
+            'match_thresh': 0.52,  # Lower for better matching
             'stable_thresh': config.STABLE_TRACK_THRESHOLD,
             'min_track_length': config.MIN_TRACK_LENGTH,
             'min_stable_frames': 8,  # Reduced for faster recognition
@@ -373,8 +373,8 @@ class FaceRecognitionService:
             try:
                 face_logger.info("🔄 Trying CPU-only fallback...")
                 self.face_app = FaceAnalysis(
-                    name='buffalo_s',  # Smaller model for CPU
-                    providers=['CPUExecutionProvider'],
+                    name='buffalo_l',  # Smaller model for CPU
+                    providers=['CUDAExecutionProvider'],
                     allowed_modules=['detection', 'recognition']
                 )
                 self.face_app.prepare(ctx_id=0, det_size=(416, 312), det_thresh=0.5)

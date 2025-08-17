@@ -34,67 +34,98 @@ class CameraService:
         self.cameras: List[Camera] = []
         self.active_streams: Dict[int, cv2.VideoCapture] = {}
 
-        camera_logger.info("📹 Initialized Camera Service")
+        camera_logger.info("Initialized Camera Service")
 
     def load_cameras_from_backend(self) -> Dict[str, any]:
-        """Load cameras từ backend với improved mapping"""
-        camera_logger.info("📹 Loading cameras from backend...")
+        """Load cameras từ backend - SIMPLIFIED VERSION"""
+        camera_logger.info("Loading cameras from backend...")
 
         try:
-            # Try Flask-specific endpoint first
+            # Get cameras from backend API
             response = self.backend_api.get_active_cameras()
 
             if not response.success:
-                # Fallback to general cameras endpoint
-                camera_logger.warning("Flask endpoint failed, trying general endpoint...")
-                response = self.backend_api.get_cameras()
+                camera_logger.error(f"Backend API call failed: {response.message}")
+                return {
+                    'success': False,
+                    'message': response.message,
+                    'cameras': [],
+                    'count': 0
+                }
 
-                if not response.success:
-                    return {
-                        'success': False,
-                        'message': f"Backend connection failed: {response.message}",
-                        'cameras': [],
-                        'count': 0
-                    }
-
-            # Parse camera data with multiple field mapping
+            # Parse response data
             cameras_data = response.data
-            if not isinstance(cameras_data, list):
-                # Handle paginated response
-                if isinstance(cameras_data, dict):
-                    cameras_data = cameras_data.get('content', [])
-                    if not cameras_data:
-                        cameras_data = cameras_data.get('data', [])
+            camera_logger.info(f"Got response data type: {type(cameras_data)}")
 
-                if not isinstance(cameras_data, list):
+            # Handle different response formats
+            if cameras_data is None:
+                camera_logger.error("No data received from backend")
+                cameras_data = []
+            elif isinstance(cameras_data, dict):
+                # Check if it's a wrapped response
+                if 'content' in cameras_data:
+                    cameras_data = cameras_data['content']
+                elif 'data' in cameras_data:
+                    cameras_data = cameras_data['data']
+                elif 'cameras' in cameras_data:
+                    cameras_data = cameras_data['cameras']
+                elif 'text' in cameras_data:
+                    # This means we got HTML instead of JSON
+                    camera_logger.error("Received HTML response instead of JSON - authentication issue")
                     return {
                         'success': False,
-                        'message': "Invalid camera data format from backend",
+                        'message': "Authentication failed - received HTML response",
                         'cameras': [],
                         'count': 0
                     }
+                else:
+                    # Single camera object, convert to list
+                    cameras_data = [cameras_data] if cameras_data else []
+            elif not isinstance(cameras_data, list):
+                camera_logger.error(f"Unexpected data type: {type(cameras_data)}")
+                cameras_data = []
 
-            # Convert to Camera objects với improved field mapping
+            camera_logger.info(f"Processing {len(cameras_data)} camera records...")
+
+            # Clear existing cameras
             self.cameras = []
-            for cam_data in cameras_data:
+            successful_count = 0
+
+            # Process each camera
+            for i, camera_data in enumerate(cameras_data):
                 try:
-                    camera = self._parse_camera_data(cam_data)
+                    camera_logger.info(f"Processing camera {i+1}/{len(cameras_data)}")
+
+                    # Skip invalid data
+                    if not isinstance(camera_data, dict):
+                        camera_logger.warning(f"Skipping invalid camera data at index {i}: {type(camera_data)}")
+                        continue
+
+                    # Create camera object
+                    camera = self._create_camera_from_data(camera_data)
                     if camera:
                         self.cameras.append(camera)
+                        successful_count += 1
+                        camera_logger.info(f"Successfully added camera: {camera.name}")
+                    else:
+                        camera_logger.warning(f"Failed to create camera from data at index {i}")
 
                 except Exception as e:
-                    camera_logger.warning(f"Error parsing camera data: {e}")
+                    camera_logger.error(f"Error processing camera {i}: {e}")
                     continue
 
-            camera_logger.info(f"✅ Loaded {len(self.cameras)} cameras")
+            camera_logger.info(f"Successfully loaded {successful_count} cameras out of {len(cameras_data)}")
+
             return {
                 'success': True,
                 'cameras': [self._camera_to_dict(cam) for cam in self.cameras],
-                'count': len(self.cameras)
+                'count': len(self.cameras),
+                'processed': successful_count,
+                'total_received': len(cameras_data)
             }
 
         except Exception as e:
-            camera_logger.error(f"❌ Error loading cameras: {e}")
+            camera_logger.error(f"Error loading cameras from backend: {e}")
             return {
                 'success': False,
                 'message': f"Failed to load cameras: {str(e)}",
@@ -102,64 +133,74 @@ class CameraService:
                 'count': 0
             }
 
-    def _parse_camera_data(self, cam_data: Dict) -> Optional[Camera]:
-        """Parse camera data from various backend formats"""
+    def _create_camera_from_data(self, camera_data: Dict) -> Optional[Camera]:
+        """Create Camera object from backend data"""
         try:
-            # Map various field names for RTSP URL
+            # Extract camera info with multiple field name possibilities
+            camera_id = camera_data.get('id')
+            if camera_id is None:
+                camera_logger.warning("Camera data missing ID")
+                return None
+
+            # Get camera name
+            name = (
+                camera_data.get('name') or
+                camera_data.get('tenCamera') or
+                camera_data.get('cameraName') or
+                f"Camera {camera_id}"
+            )
+
+            # Get RTSP URL
             rtsp_url = (
-                    cam_data.get('rtspUrl') or
-                    cam_data.get('ipAddress') or
-                    cam_data.get('ip_address') or
-                    cam_data.get('url') or
-                    cam_data.get('streamUrl') or
-                    ''
+                camera_data.get('rtspUrl') or
+                camera_data.get('rtsp_url') or
+                camera_data.get('ipAddress') or
+                camera_data.get('url') or
+                camera_data.get('streamUrl') or
+                ""
             )
 
-            # Map various field names for camera name
-            camera_name = (
-                    cam_data.get('tenCamera') or
-                    cam_data.get('name') or
-                    cam_data.get('cameraName') or
-                    f"Camera {cam_data.get('id', 'Unknown')}"
-            )
-
-            # Map various field names for location
+            # Get location
             location = (
-                    cam_data.get('tenPhong') or
-                    cam_data.get('maPhong') or
-                    cam_data.get('location') or
-                    cam_data.get('room') or
-                    'Unknown Location'
+                camera_data.get('location') or
+                camera_data.get('tenPhong') or
+                camera_data.get('maPhong') or
+                camera_data.get('room') or
+                "Unknown Location"
             )
 
-            # Map active status
-            active = cam_data.get('isActive', cam_data.get('active', True))
+            # Get active status
+            active = camera_data.get('active', camera_data.get('isActive', True))
 
             # Create camera object
             camera = Camera(
-                id=cam_data.get('id'),
-                name=camera_name,
+                id=camera_id,
+                name=name,
                 rtsp_url=rtsp_url,
                 location=location,
                 active=active,
-                hls_url=cam_data.get('hlsUrl', ''),
-                current_schedule=cam_data.get('currentSchedule')
+                hls_url=camera_data.get('hlsUrl', ''),
+                current_schedule=camera_data.get('currentSchedule')
             )
 
             # Validate RTSP URL
-            if rtsp_url and ('rtsp://' in rtsp_url.lower() or 'http://' in rtsp_url.lower()):
-                camera_logger.info(f"✅ Valid camera: {camera.name} - {rtsp_url[:30]}...")
-                return camera
-            else:
-                camera_logger.warning(f"⚠️ Camera {camera.name} has invalid/missing RTSP URL")
+            if not rtsp_url:
+                camera_logger.warning(f"Camera {name} has no RTSP URL")
                 return None
 
+            if not ('rtsp://' in rtsp_url.lower() or 'http://' in rtsp_url.lower()):
+                camera_logger.warning(f"Camera {name} has invalid RTSP URL: {rtsp_url}")
+                return None
+
+            camera_logger.info(f"Created camera: {name} with RTSP: {rtsp_url[:50]}...")
+            return camera
+
         except Exception as e:
-            camera_logger.error(f"❌ Error parsing camera data: {e}")
+            camera_logger.error(f"Error creating camera from data: {e}")
             return None
 
     def _camera_to_dict(self, camera: Camera) -> Dict:
-        """Convert Camera object to dictionary with proper RTSP mapping"""
+        """Convert Camera object to dictionary"""
         return {
             'id': camera.id,
             'name': camera.name,
@@ -168,8 +209,7 @@ class CameraService:
             'active': camera.active,
             'hlsUrl': camera.hls_url,
             'schedule': camera.current_schedule,
-            # Additional debugging info
-            'hasValidRTSP': bool(camera.rtsp_url and 'rtsp://' in camera.rtsp_url.lower()),
+            'hasValidRTSP': bool(camera.rtsp_url and ('rtsp://' in camera.rtsp_url.lower() or 'http://' in camera.rtsp_url.lower())),
             'rtspPreview': camera.rtsp_url[:50] + '...' if len(camera.rtsp_url) > 50 else camera.rtsp_url
         }
 
@@ -189,9 +229,9 @@ class CameraService:
         return [self._camera_to_dict(cam) for cam in self.cameras]
 
     def validate_camera_connection(self, camera: Camera) -> bool:
-        """Validate if camera RTSP connection is working"""
+        """Test if camera RTSP connection is working"""
         try:
-            camera_logger.info(f"🔍 Testing connection for camera {camera.id}: {camera.name}")
+            camera_logger.info(f"Testing connection for camera {camera.id}: {camera.name}")
 
             # Test OpenCV connection
             cap = cv2.VideoCapture(camera.rtsp_url)
@@ -200,23 +240,23 @@ class CameraService:
                 cap.release()
 
                 if ret and frame is not None:
-                    camera_logger.info(f"✅ Camera {camera.id} connection successful")
+                    camera_logger.info(f"Camera {camera.id} connection successful")
                     return True
                 else:
-                    camera_logger.warning(f"⚠️ Camera {camera.id} opened but no frame received")
+                    camera_logger.warning(f"Camera {camera.id} opened but no frame received")
                     return False
             else:
-                camera_logger.warning(f"❌ Camera {camera.id} failed to open")
+                camera_logger.warning(f"Camera {camera.id} failed to open")
                 return False
 
         except Exception as e:
-            camera_logger.error(f"❌ Error testing camera {camera.id}: {e}")
+            camera_logger.error(f"Error testing camera {camera.id}: {e}")
             return False
 
     def create_video_capture(self, camera: Camera) -> Optional[cv2.VideoCapture]:
         """Create video capture for camera"""
         try:
-            camera_logger.info(f"📹 Creating video capture for camera {camera.id}")
+            camera_logger.info(f"Creating video capture for camera {camera.id}")
 
             cap = cv2.VideoCapture(camera.rtsp_url)
 
@@ -228,14 +268,14 @@ class CameraService:
 
             if cap.isOpened():
                 self.active_streams[camera.id] = cap
-                camera_logger.info(f"✅ Video capture created for camera {camera.id}")
+                camera_logger.info(f"Video capture created for camera {camera.id}")
                 return cap
             else:
-                camera_logger.error(f"❌ Failed to create video capture for camera {camera.id}")
+                camera_logger.error(f"Failed to create video capture for camera {camera.id}")
                 return None
 
         except Exception as e:
-            camera_logger.error(f"❌ Error creating video capture: {e}")
+            camera_logger.error(f"Error creating video capture: {e}")
             return None
 
     def release_video_capture(self, camera_id: int):
@@ -244,9 +284,9 @@ class CameraService:
             try:
                 self.active_streams[camera_id].release()
                 del self.active_streams[camera_id]
-                camera_logger.info(f"🔚 Released video capture for camera {camera_id}")
+                camera_logger.info(f"Released video capture for camera {camera_id}")
             except Exception as e:
-                camera_logger.error(f"❌ Error releasing video capture: {e}")
+                camera_logger.error(f"Error releasing video capture: {e}")
 
     def get_camera_stats(self) -> Dict[str, int]:
         """Get camera statistics"""
@@ -257,7 +297,7 @@ class CameraService:
             'streaming': len(self.active_streams)
         }
 
-        camera_logger.info(f"📊 Camera stats: {stats}")
+        camera_logger.info(f"Camera stats: {stats}")
         return stats
 
     def search_cameras(self, query: str) -> List[Camera]:
@@ -271,8 +311,19 @@ class CameraService:
                     query in str(camera.id)):
                 results.append(camera)
 
-        camera_logger.info(f"🔍 Search '{query}' found {len(results)} cameras")
+        camera_logger.info(f"Search '{query}' found {len(results)} cameras")
         return results
+
+    def refresh_cameras(self):
+        """Refresh camera list from backend"""
+        camera_logger.info("Refreshing camera list...")
+
+        # Release all active streams
+        for camera_id in list(self.active_streams.keys()):
+            self.release_video_capture(camera_id)
+
+        # Reload from backend
+        return self.load_cameras_from_backend()
 
     def add_custom_camera(self, name: str, rtsp_url: str, location: str = "") -> Camera:
         """Add custom camera"""
@@ -287,7 +338,7 @@ class CameraService:
         )
 
         self.cameras.append(camera)
-        camera_logger.info(f"➕ Added custom camera: {name}")
+        camera_logger.info(f"Added custom camera: {name}")
         return camera
 
     def remove_camera(self, camera_id: int) -> bool:
@@ -299,20 +350,9 @@ class CameraService:
             # Remove from list
             self.cameras = [cam for cam in self.cameras if cam.id != camera_id]
 
-            camera_logger.info(f"🗑️ Removed camera {camera_id}")
+            camera_logger.info(f"Removed camera {camera_id}")
             return True
 
         except Exception as e:
-            camera_logger.error(f"❌ Error removing camera {camera_id}: {e}")
+            camera_logger.error(f"Error removing camera {camera_id}: {e}")
             return False
-
-    def refresh_cameras(self):
-        """Refresh camera list from backend"""
-        camera_logger.info("🔄 Refreshing camera list...")
-
-        # Release all active streams
-        for camera_id in list(self.active_streams.keys()):
-            self.release_video_capture(camera_id)
-
-        # Reload from backend
-        return self.load_cameras_from_backend()
