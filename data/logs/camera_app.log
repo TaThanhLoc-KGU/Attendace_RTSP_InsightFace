@@ -760,3 +760,323 @@ AttributeError: 'Config' object has no attribute 'create_directories'
 2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Frame processing interval: 1
 2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Max concurrent cameras: 4
 2025-08-17 15:13:31,834 - camera_app - [32mINFO[0m -   - Cache directory: data/embeddings
+2025-08-17 23:12:17,756 - camera_app - [31mERROR[0m - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 216, in setup_environment
+    config.create_directories()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Config' object has no attribute 'create_directories'
+
+2025-08-17 23:14:08,285 - camera_app - INFO - Starting Student Attendance System
+2025-08-17 23:14:08,285 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-17 23:14:08,285 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-17 23:14:08,285 - camera_app - INFO - Platform: win32
+2025-08-17 23:14:08,285 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-17 23:14:08,285 - camera_app - INFO - Configuration:
+2025-08-17 23:14:08,285 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-17 23:14:08,285 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-17 23:14:08,285 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-17 23:14:08,286 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-17 23:14:08,286 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-17 23:14:08,286 - camera_app - INFO - No cache found, will sync from backend
+2025-08-17 23:14:10,622 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-17 23:14:10,622 - camera_app - INFO - ✅ GUI created successfully
+2025-08-17 23:14:11,783 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-17 23:19:14,729 - camera_app - INFO - 👋 Application closing
+2025-08-17 23:19:29,843 - camera_app - INFO - Starting Student Attendance System
+2025-08-17 23:19:29,844 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-17 23:19:29,844 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-17 23:19:29,844 - camera_app - INFO - Platform: win32
+2025-08-17 23:19:29,844 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-17 23:19:29,844 - camera_app - INFO - Configuration:
+2025-08-17 23:19:29,844 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-17 23:19:29,844 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-17 23:19:29,844 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-17 23:19:29,844 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-17 23:19:29,844 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-17 23:19:29,844 - camera_app - INFO - No cache found, will sync from backend
+2025-08-17 23:19:31,926 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-17 23:19:31,926 - camera_app - INFO - ✅ GUI created successfully
+2025-08-17 23:19:33,074 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-17 23:26:35,412 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-17 23:26:35,412 - camera_app - INFO - 👋 Application closing
+2025-08-17 23:26:35,448 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-17 23:30:09,369 - camera_app - INFO - Starting Student Attendance System
+2025-08-17 23:30:09,369 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-17 23:30:09,369 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-17 23:30:09,369 - camera_app - INFO - Platform: win32
+2025-08-17 23:30:09,369 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-17 23:30:09,370 - camera_app - INFO - Configuration:
+2025-08-17 23:30:09,370 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-17 23:30:09,370 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-17 23:30:09,370 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-17 23:30:09,370 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-17 23:30:09,370 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-17 23:30:09,370 - camera_app - INFO - No cache found, will sync from backend
+2025-08-17 23:30:11,460 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-17 23:30:11,460 - camera_app - INFO - ✅ GUI created successfully
+2025-08-17 23:30:12,618 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-17 23:32:39,951 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-17 23:32:39,951 - camera_app - INFO - 👋 Application closing
+2025-08-17 23:32:39,978 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-17 23:32:45,932 - camera_app - INFO - Starting Student Attendance System
+2025-08-17 23:32:45,932 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-17 23:32:45,932 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-17 23:32:45,932 - camera_app - INFO - Platform: win32
+2025-08-17 23:32:45,932 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-17 23:32:45,932 - camera_app - INFO - Configuration:
+2025-08-17 23:32:45,932 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-17 23:32:45,932 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-17 23:32:45,932 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-17 23:32:45,933 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-17 23:32:45,933 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-17 23:32:45,933 - camera_app - INFO - No cache found, will sync from backend
+2025-08-17 23:32:47,833 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-17 23:32:47,833 - camera_app - INFO - ✅ GUI created successfully
+2025-08-17 23:32:48,981 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-17 23:35:42,342 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-17 23:35:42,342 - camera_app - INFO - 👋 Application closing
+2025-08-17 23:35:42,374 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-18 00:31:09,455 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 00:31:09,455 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 00:31:09,456 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 00:31:09,456 - camera_app - INFO - Platform: win32
+2025-08-18 00:31:09,456 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 00:31:09,456 - camera_app - INFO - Configuration:
+2025-08-18 00:31:09,456 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 00:31:09,456 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 00:31:09,456 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 00:31:09,456 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 00:31:09,456 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 00:31:09,457 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 00:31:12,356 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-18 00:31:12,357 - camera_app - INFO - ✅ GUI created successfully
+2025-08-18 00:31:13,502 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-18 00:37:13,204 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-18 00:37:13,204 - camera_app - INFO - 👋 Application closing
+2025-08-18 00:37:13,243 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-18 00:37:20,405 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 00:37:20,405 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 00:37:20,406 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 00:37:20,406 - camera_app - INFO - Platform: win32
+2025-08-18 00:37:20,406 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 00:37:20,406 - camera_app - INFO - Configuration:
+2025-08-18 00:37:20,406 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 00:37:20,406 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 00:37:20,406 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 00:37:20,406 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 00:37:20,406 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 00:37:20,406 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 00:37:22,544 - camera_app - ERROR - ❌ Failed to create GUI: name 'FaceAnalysis' is not defined
+2025-08-18 00:37:22,548 - camera_app - ERROR - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 379, in create_gui
+    self.main_window = MainWindow(self.root)
+                       ~~~~~~~~~~^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\ui\main_window.py", line 38, in __init__
+    self.face_service = FaceRecognitionService(self.backend_api)
+                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 252, in __init__
+    self.student_service = StudentEmbeddingService(backend_api)
+                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 34, in __init__
+    self.face_app = FaceAnalysis(name=config.INSIGHTFACE_MODEL, providers=config.get_insightface_providers())
+                    ^^^^^^^^^^^^
+NameError: name 'FaceAnalysis' is not defined
+
+2025-08-18 00:38:53,994 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 00:38:53,994 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 00:38:53,994 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 00:38:53,994 - camera_app - INFO - Platform: win32
+2025-08-18 00:38:53,995 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 00:38:53,995 - camera_app - INFO - Configuration:
+2025-08-18 00:38:53,995 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 00:38:53,995 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 00:38:53,995 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 00:38:53,995 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 00:38:53,995 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 00:38:53,995 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 00:39:01,628 - camera_app - ERROR - ❌ Failed to create GUI: cannot import name 'FaceAnalysis' from 'insightface' (D:\LuanVan\camera_rtsp_app\.venv\Lib\site-packages\insightface\__init__.py)
+2025-08-18 00:39:01,630 - camera_app - ERROR - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 379, in create_gui
+    self.main_window = MainWindow(self.root)
+                       ~~~~~~~~~~^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\ui\main_window.py", line 38, in __init__
+    self.face_service = FaceRecognitionService(self.backend_api)
+                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 252, in __init__
+    self.student_service = StudentEmbeddingService(backend_api)
+                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 28, in __init__
+    from insightface import FaceAnalysis
+ImportError: cannot import name 'FaceAnalysis' from 'insightface' (D:\LuanVan\camera_rtsp_app\.venv\Lib\site-packages\insightface\__init__.py)
+
+2025-08-18 00:39:19,375 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 00:39:19,375 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 00:39:19,375 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 00:39:19,375 - camera_app - INFO - Platform: win32
+2025-08-18 00:39:19,375 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 00:39:19,375 - camera_app - INFO - Configuration:
+2025-08-18 00:39:19,375 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 00:39:19,375 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 00:39:19,375 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 00:39:19,375 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 00:39:19,375 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 00:39:19,376 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 00:39:25,599 - camera_app - ERROR - ❌ Failed to create GUI: cannot import name 'FaceAnalysis' from 'insightface' (D:\LuanVan\camera_rtsp_app\.venv\Lib\site-packages\insightface\__init__.py)
+2025-08-18 00:39:25,601 - camera_app - ERROR - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 379, in create_gui
+    self.main_window = MainWindow(self.root)
+                       ~~~~~~~~~~^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\ui\main_window.py", line 38, in __init__
+    self.face_service = FaceRecognitionService(self.backend_api)
+                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 252, in __init__
+    self.student_service = StudentEmbeddingService(backend_api)
+                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 28, in __init__
+    from insightface import FaceAnalysis
+ImportError: cannot import name 'FaceAnalysis' from 'insightface' (D:\LuanVan\camera_rtsp_app\.venv\Lib\site-packages\insightface\__init__.py)
+
+2025-08-18 00:40:56,804 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 00:40:56,804 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 00:40:56,804 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 00:40:56,804 - camera_app - INFO - Platform: win32
+2025-08-18 00:40:56,805 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 00:40:56,805 - camera_app - INFO - Configuration:
+2025-08-18 00:40:56,805 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 00:40:56,805 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 00:40:56,805 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 00:40:56,805 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 00:40:56,805 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 00:40:56,805 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 00:40:59,103 - camera_app - ERROR - ❌ Failed to create GUI: name 'FaceAnalysis' is not defined
+2025-08-18 00:40:59,106 - camera_app - ERROR - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 379, in create_gui
+    self.main_window = MainWindow(self.root)
+                       ~~~~~~~~~~^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\ui\main_window.py", line 38, in __init__
+    self.face_service = FaceRecognitionService(self.backend_api)
+                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 252, in __init__
+    self.student_service = StudentEmbeddingService(backend_api)
+                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 34, in __init__
+    self.face_app = FaceAnalysis(name=config.INSIGHTFACE_MODEL, providers=config.get_insightface_providers())
+                    ^^^^^^^^^^^^
+NameError: name 'FaceAnalysis' is not defined
+
+2025-08-18 00:42:45,097 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 00:42:45,097 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 00:42:45,097 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 00:42:45,097 - camera_app - INFO - Platform: win32
+2025-08-18 00:42:45,097 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 00:42:45,097 - camera_app - INFO - Configuration:
+2025-08-18 00:42:45,098 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 00:42:45,098 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 00:42:45,098 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 00:42:45,098 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 00:42:45,098 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 00:42:45,098 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 00:42:47,272 - camera_app - ERROR - ❌ Failed to create GUI: name 'FaceAnalysis' is not defined
+2025-08-18 00:42:47,275 - camera_app - ERROR - Traceback (most recent call last):
+  File "D:\LuanVan\camera_rtsp_app\main.py", line 379, in create_gui
+    self.main_window = MainWindow(self.root)
+                       ~~~~~~~~~~^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\ui\main_window.py", line 38, in __init__
+    self.face_service = FaceRecognitionService(self.backend_api)
+                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\LuanVan\camera_rtsp_app\services\face_service.py", line 250, in __init__
+    self.face_app = FaceAnalysis(name=config.INSIGHTFACE_MODEL, providers=config.get_insightface_providers())
+                    ^^^^^^^^^^^^
+NameError: name 'FaceAnalysis' is not defined
+
+2025-08-18 01:02:05,173 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 01:02:05,173 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 01:02:05,173 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 01:02:05,173 - camera_app - INFO - Platform: win32
+2025-08-18 01:02:05,173 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 01:02:05,173 - camera_app - INFO - Configuration:
+2025-08-18 01:02:05,174 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 01:02:05,174 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 01:02:05,174 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 01:02:05,174 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 01:02:05,174 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 01:02:05,174 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 01:02:09,491 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-18 01:02:09,491 - camera_app - INFO - ✅ GUI created successfully
+2025-08-18 01:02:10,647 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-18 01:05:55,860 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-18 01:05:55,861 - camera_app - INFO - 👋 Application closing
+2025-08-18 01:05:55,935 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-18 01:07:02,101 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 01:07:02,102 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 01:07:02,102 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 01:07:02,102 - camera_app - INFO - Platform: win32
+2025-08-18 01:07:02,102 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 01:07:02,102 - camera_app - INFO - Configuration:
+2025-08-18 01:07:02,102 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 01:07:02,102 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 01:07:02,102 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 01:07:02,102 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 01:07:02,102 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 01:07:02,103 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 01:07:06,407 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-18 01:07:06,407 - camera_app - INFO - ✅ GUI created successfully
+2025-08-18 01:07:07,710 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-18 01:10:06,319 - camera_app - INFO - 👋 Application closing
+2025-08-18 01:10:06,367 - camera_app - INFO - 👋 Application closed normally
+2025-08-18 01:10:06,367 - camera_app - INFO - 👋 Application closing
+2025-08-18 01:10:06,368 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-18 01:10:14,683 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 01:10:14,684 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 01:10:14,684 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 01:10:14,684 - camera_app - INFO - Platform: win32
+2025-08-18 01:10:14,684 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 01:10:14,684 - camera_app - INFO - Configuration:
+2025-08-18 01:10:14,684 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 01:10:14,684 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 01:10:14,684 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 01:10:14,684 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 01:10:14,684 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 01:10:14,685 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 01:10:18,823 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-18 01:10:18,823 - camera_app - INFO - ✅ GUI created successfully
+2025-08-18 01:10:19,965 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-18 01:14:39,647 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-18 01:14:39,648 - camera_app - INFO - 👋 Application closing
+2025-08-18 01:14:39,690 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-18 01:14:45,974 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 01:14:45,974 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 01:14:45,975 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 01:14:45,975 - camera_app - INFO - Platform: win32
+2025-08-18 01:14:45,975 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 01:14:45,975 - camera_app - INFO - Configuration:
+2025-08-18 01:14:45,975 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 01:14:45,975 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 01:14:45,975 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 01:14:45,975 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 01:14:45,975 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 01:14:45,975 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 01:14:49,932 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-18 01:14:49,932 - camera_app - INFO - ✅ GUI created successfully
+2025-08-18 01:14:51,084 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-18 01:18:38,235 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-18 01:18:38,235 - camera_app - INFO - 👋 Application closing
+2025-08-18 01:18:38,275 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed
+2025-08-18 01:18:47,710 - camera_app - INFO - Starting Student Attendance System
+2025-08-18 01:18:47,710 - camera_app - INFO - Project root: D:\LuanVan\camera_rtsp_app
+2025-08-18 01:18:47,710 - camera_app - INFO - Python version: 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]
+2025-08-18 01:18:47,710 - camera_app - INFO - Platform: win32
+2025-08-18 01:18:47,711 - camera_app - INFO - Arguments: {'no_splash': False, 'no_auto_start': False, 'debug': False, 'sync_embeddings': False, 'config': None, 'log_level': 'INFO', 'cache_dir': None, 'backend_url': None, 'window_size': None}
+2025-08-18 01:18:47,711 - camera_app - INFO - Configuration:
+2025-08-18 01:18:47,711 - camera_app - INFO -   - Backend URL: http://localhost:8080/api
+2025-08-18 01:18:47,711 - camera_app - INFO -   - Recognition threshold: 0.35
+2025-08-18 01:18:47,711 - camera_app - INFO -   - Frame processing interval: 4
+2025-08-18 01:18:47,711 - camera_app - INFO -   - Max concurrent cameras: 6
+2025-08-18 01:18:47,711 - camera_app - INFO -   - Cache directory: data/embeddings
+2025-08-18 01:18:47,711 - camera_app - INFO - No cache found, will sync from backend
+2025-08-18 01:18:51,476 - camera_app - INFO - 🚀 Main window initialized with auto-start
+2025-08-18 01:18:51,476 - camera_app - INFO - ✅ GUI created successfully
+2025-08-18 01:18:52,623 - camera_app - INFO - 🎬 Starting GUI event loop
+2025-08-18 01:20:48,219 - camera_app - INFO - 🛑 Application interrupted by user
+2025-08-18 01:20:48,219 - camera_app - INFO - 👋 Application closing
+2025-08-18 01:20:48,260 - camera_app - ERROR - ❌ Error during cleanup: can't invoke "destroy" command: application has been destroyed

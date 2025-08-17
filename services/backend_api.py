@@ -1,11 +1,12 @@
 """
-Enhanced Backend API client for Spring Boot integration with Python API endpoints
+Fixed Backend API with correct camera endpoints
 """
 import requests
-from typing import List, Dict, Optional
+from typing import Dict, Optional, List
 from dataclasses import dataclass
 from config.config import config
 from utils.logger import api_logger
+import time
 
 @dataclass
 class APIResponse:
@@ -16,7 +17,7 @@ class APIResponse:
     status_code: int = 0
 
 class BackendAPI:
-    """Enhanced API client để communicate với Spring Boot backend"""
+    """Backend API client with CORRECT endpoints"""
 
     def __init__(self, base_url: str = None):
         self.base_url = base_url or config.BACKEND_URL
@@ -24,86 +25,94 @@ class BackendAPI:
         self.session.timeout = 30
         self.is_authenticated = False
 
-        # Fixed credentials
-        self.username = "admin"
-        self.password = "admin@123"
+        # Use credentials from config
+        self.username = config.BACKEND_USERNAME  # admin
+        self.password = config.BACKEND_PASSWORD  # admin@123
 
-        # Set browser-like headers
+        # Set proper headers
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'application/json, text/html, */*',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Connection': 'keep-alive'
         })
 
-        api_logger.info(f"Initialized Backend API client for {self.base_url}")
+        api_logger.info(f"🔗 Initialized Backend API client for {self.base_url}")
+
+        # Auto-authenticate if enabled
+        if config.AUTO_LOGIN:
+            self._auto_authenticate()
+
+    def _auto_authenticate(self):
+        """Auto authenticate on initialization"""
+        try:
+            if self.authenticate():
+                api_logger.info("✅ Auto-authentication successful")
+            else:
+                api_logger.warning("⚠️ Auto-authentication failed")
+        except Exception as e:
+            api_logger.error(f"❌ Auto-authentication error: {e}")
 
     def authenticate(self) -> bool:
-        """Perform login authentication"""
+        """Perform web-based login authentication"""
         try:
-            api_logger.info("Attempting to authenticate...")
+            api_logger.info("🔐 Starting authentication...")
 
-            # Step 1: Get login page to establish session
+            # Get base URL without /api
             base_url_without_api = self.base_url.replace('/api', '')
-            login_page_url = f"{base_url_without_api}/login"
+            login_url = f"{base_url_without_api}/login"
 
-            api_logger.info(f"Getting login page: {login_page_url}")
-            response = self.session.get(login_page_url)
+            # Get login page
+            login_page = self.session.get(login_url, allow_redirects=True)
 
-            if response.status_code != 200:
-                api_logger.error(f"Cannot access login page: {response.status_code}")
+            if login_page.status_code != 200:
+                api_logger.error(f"❌ Cannot access login page: {login_page.status_code}")
                 return False
 
-            # Step 2: Submit login credentials
+            # Prepare login data
             login_data = {
                 'username': self.username,
                 'password': self.password
             }
 
-            # Set form headers
-            form_headers = {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Referer': login_page_url,
-                'Origin': base_url_without_api
-            }
-
-            api_logger.info("Submitting login form...")
+            # Submit login
             login_response = self.session.post(
-                login_page_url,
+                login_url,
                 data=login_data,
-                headers=form_headers,
+                headers={
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Referer': login_url,
+                    'Origin': base_url_without_api
+                },
                 allow_redirects=True
             )
 
-            # Check if login was successful
+            # Check authentication success
             if login_response.status_code == 200:
-                # Look for success indicators in response
                 response_text = login_response.text.lower()
 
-                # If we're still on login page, authentication failed
-                if 'login' in login_response.url.lower() and any(keyword in response_text for keyword in ['error', 'invalid', 'incorrect']):
-                    api_logger.error("Login failed - invalid credentials")
+                # If we're still on login page with errors, auth failed
+                if '/login' in login_response.url and any(err in response_text for err in ['error', 'invalid', 'incorrect']):
+                    api_logger.error("❌ Authentication failed - invalid credentials")
                     return False
 
-                # If we're redirected away from login or see dashboard content
-                if '/login' not in login_response.url or any(keyword in response_text for keyword in ['dashboard', 'logout', 'welcome']):
-                    api_logger.info("Authentication successful")
+                # Check for success indicators
+                if any(indicator in response_text for indicator in ['dashboard', 'logout', 'admin', 'menu']) or '/login' not in login_response.url:
                     self.is_authenticated = True
+                    api_logger.info("✅ Authentication successful")
                     return True
 
-            api_logger.error(f"Authentication failed: {login_response.status_code}")
+            api_logger.error(f"❌ Authentication failed: {login_response.status_code}")
             return False
 
         except Exception as e:
-            api_logger.error(f"Authentication error: {e}")
+            api_logger.error(f"❌ Authentication error: {e}")
             return False
 
     def _make_request(self, method: str, endpoint: str, **kwargs) -> APIResponse:
-        """Make HTTP request with error handling"""
-        # Ensure authentication for protected endpoints
-        if not endpoint.startswith('/auth') and not self.is_authenticated:
+        """Make HTTP request with authentication"""
+        # Ensure authentication
+        if not self.is_authenticated:
             if not self.authenticate():
                 return APIResponse(
                     success=False,
@@ -114,24 +123,20 @@ class BackendAPI:
         url = f"{self.base_url}{endpoint}"
 
         try:
-            api_logger.debug(f"{method} {url}")
-
             # Set JSON headers for API calls
             if 'headers' not in kwargs:
                 kwargs['headers'] = {}
 
             kwargs['headers'].update({
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             })
 
             response = self.session.request(method, url, **kwargs)
-            api_logger.debug(f"Response: {response.status_code}")
 
             # Handle authentication redirect
-            if response.status_code == 302 or 'login' in response.url:
-                api_logger.warning("Session expired, re-authenticating...")
+            if response.status_code == 302 or '/login' in response.url:
+                api_logger.warning("🔄 Session expired, re-authenticating...")
                 self.is_authenticated = False
 
                 if self.authenticate():
@@ -143,18 +148,20 @@ class BackendAPI:
                         status_code=401
                     )
 
+            # Handle successful response
             if response.status_code == 200:
                 try:
                     data = response.json()
+                    api_logger.debug(f"✅ Success: {method} {endpoint}")
                     return APIResponse(
                         success=True,
                         data=data,
                         status_code=response.status_code
                     )
                 except ValueError:
-                    # Check if response is HTML
-                    if 'DOCTYPE html' in response.text or '<html' in response.text:
-                        api_logger.error("Received HTML response - authentication required")
+                    # Check if HTML response (auth issue)
+                    if any(tag in response.text.lower() for tag in ['<html', '<!doctype']):
+                        api_logger.error("❌ Received HTML - authentication required")
                         self.is_authenticated = False
                         return APIResponse(
                             success=False,
@@ -168,156 +175,174 @@ class BackendAPI:
                         data={"text": response.text},
                         status_code=response.status_code
                     )
+
+            # Handle error responses
             else:
+                try:
+                    error_data = response.json()
+                    error_msg = error_data.get('message', f"HTTP {response.status_code}")
+                except:
+                    error_msg = f"HTTP {response.status_code}"
+
+                api_logger.error(f"❌ API error: {error_msg}")
                 return APIResponse(
                     success=False,
-                    message=f"HTTP {response.status_code}: {response.text[:200]}",
+                    message=error_msg,
                     status_code=response.status_code
                 )
 
         except requests.exceptions.ConnectionError:
-            api_logger.error(f"Connection failed to {url}")
+            api_logger.error("❌ Connection error - is backend running?")
             return APIResponse(
                 success=False,
-                message=f"Connection failed to {url}",
-                status_code=0
-            )
-        except requests.exceptions.Timeout:
-            api_logger.error(f"Request timeout to {url}")
-            return APIResponse(
-                success=False,
-                message=f"Request timeout to {url}",
-                status_code=0
+                message="Connection error - is backend running?",
+                status_code=503
             )
         except Exception as e:
-            api_logger.error(f"Unexpected error: {e}")
+            api_logger.error(f"❌ Request error: {e}")
             return APIResponse(
                 success=False,
-                message=f"Unexpected error: {str(e)}",
-                status_code=0
+                message=str(e),
+                status_code=500
             )
 
-    # Camera API endpoints
+    # FIXED: Camera API endpoints with correct paths
     def get_cameras(self) -> APIResponse:
-        """Lấy danh sách tất cả cameras"""
-        api_logger.info("Fetching all cameras...")
+        """Get all cameras - CORRECT endpoint"""
+        api_logger.info("📥 Fetching all cameras...")
         return self._make_request('GET', '/cameras')
 
     def get_active_cameras(self) -> APIResponse:
-        """Lấy danh sách cameras đang hoạt động"""
-        api_logger.info("Fetching active cameras...")
+        """Get active cameras - TRYING multiple endpoints"""
+        api_logger.info("📥 Fetching active cameras...")
 
-        # Try multiple endpoints
+        # Try different possible endpoints
         endpoints_to_try = [
-            '/cameras',
-            '/flask/cameras/active',
-            '/cameras/active'
+            '/cameras',           # Basic endpoint - filter active on client side
+            '/flask/cameras/active', # Flask integration endpoint
+            '/cameras/active',    # If this endpoint exists
         ]
 
         for endpoint in endpoints_to_try:
-            api_logger.info(f"Trying endpoint: {endpoint}")
+            api_logger.info(f"🔍 Trying endpoint: {endpoint}")
             response = self._make_request('GET', endpoint)
 
             if response.success and response.data:
-                # Check if we got actual data (not HTML)
-                if isinstance(response.data, list) or (isinstance(response.data, dict) and 'text' not in response.data):
-                    api_logger.info(f"Successfully got data from: {endpoint}")
+                # Check if we got valid camera data
+                data = response.data
+
+                if isinstance(data, list):
+                    # Filter active cameras if needed
+                    if endpoint == '/cameras':
+                        # Filter active cameras client-side
+                        active_cameras = [cam for cam in data if cam.get('active', True)]
+                        api_logger.info(f"✅ Got {len(active_cameras)} active cameras from {len(data)} total")
+                        return APIResponse(
+                            success=True,
+                            data=active_cameras,
+                            status_code=response.status_code
+                        )
+                    else:
+                        api_logger.info(f"✅ Successfully got {len(data)} cameras from {endpoint}")
+                        return response
+
+                elif isinstance(data, dict) and not data.get('text'):
+                    # Might be wrapped response
+                    api_logger.info(f"✅ Got data from {endpoint}")
                     return response
 
-        # If all endpoints failed, return the last response
-        api_logger.warning("All camera endpoints failed")
-        return response
+            api_logger.warning(f"⚠️ Endpoint {endpoint} failed or returned no data")
+
+        # If all failed, return error
+        api_logger.error("❌ All camera endpoints failed")
+        return APIResponse(
+            success=False,
+            message="No working camera endpoint found",
+            status_code=404
+        )
 
     def get_camera_by_id(self, camera_id: int) -> APIResponse:
-        """Lấy thông tin camera theo ID"""
-        api_logger.info(f"Fetching camera {camera_id}...")
+        """Get camera by ID"""
+        api_logger.info(f"📥 Fetching camera {camera_id}...")
         return self._make_request('GET', f'/cameras/{camera_id}')
 
-    def update_camera_status(self, camera_id: int, active: bool) -> APIResponse:
-        """Cập nhật trạng thái camera"""
-        api_logger.info(f"Updating camera {camera_id} status: {active}")
-        return self._make_request('PUT', f'/cameras/{camera_id}/status',
-                                json={'active': active})
+    # FIXED: Student embeddings endpoints
+    def get_all_embeddings(self) -> APIResponse:
+        """Get all student embeddings - CORRECT endpoint"""
+        api_logger.info("📥 Fetching all student embeddings...")
+        return self._make_request('GET', '/python/embeddings')
+
+    def get_student_embeddings_alt(self) -> APIResponse:
+        """Alternative endpoint for student embeddings"""
+        api_logger.info("📥 Trying alternative student embeddings endpoint...")
+        return self._make_request('GET', '/sinhvien/embeddings')
+
+    # Test endpoints to debug
+    def test_endpoints(self) -> Dict[str, bool]:
+        """Test various endpoints to see what works"""
+        api_logger.info("🧪 Testing available endpoints...")
+
+        endpoints_to_test = [
+            '/cameras',
+            '/cameras/active',
+            '/flask/cameras/active',
+            '/python/embeddings',
+            '/sinhvien/embeddings',
+            '/cameras/count'
+        ]
+
+        results = {}
+
+        for endpoint in endpoints_to_test:
+            try:
+                response = self._make_request('GET', endpoint)
+                results[endpoint] = response.success
+                status = "✅ WORKS" if response.success else "❌ FAILS"
+                api_logger.info(f"  {endpoint}: {status}")
+            except Exception as e:
+                results[endpoint] = False
+                api_logger.info(f"  {endpoint}: ❌ ERROR - {e}")
+
+        return results
 
     def test_connection(self) -> APIResponse:
-        """Test kết nối đến backend"""
-        api_logger.info("Testing backend connection...")
+        """Test backend connection with endpoint testing"""
+        api_logger.info("🔍 Testing backend connection...")
 
-        # Test authentication first
         if not self.authenticate():
             return APIResponse(
                 success=False,
                 message="Authentication failed"
             )
 
-        # Test camera endpoint
-        response = self.get_cameras()
-        if response.success:
+        # Test endpoints
+        working_endpoints = self.test_endpoints()
+
+        if any(working_endpoints.values()):
+            working_list = [ep for ep, works in working_endpoints.items() if works]
             return APIResponse(
                 success=True,
-                message="Connection and authentication successful"
+                message=f"Connection successful. Working endpoints: {working_list}",
+                data={"working_endpoints": working_list}
             )
         else:
-            return response
+            return APIResponse(
+                success=False,
+                message="Authentication successful but no API endpoints working"
+            )
 
-    # Python API endpoints for embeddings and students
-    def get_all_embeddings(self) -> APIResponse:
-        """Lấy tất cả embeddings từ Python API"""
-        api_logger.info("Fetching all student embeddings...")
-        return self._make_request('GET', '/python/embeddings')
-
-    def get_student_embeddings(self) -> APIResponse:
-        """Lấy student embeddings từ Python API endpoint"""
-        api_logger.info("Fetching student embeddings from Python API...")
-        return self._make_request('GET', '/python/students/embeddings')
-
-    def save_embedding(self, student_id: str, embedding_data: Dict) -> APIResponse:
-        """Lưu embedding cho sinh viên"""
-        api_logger.info(f"Saving embedding for student {student_id}...")
-        return self._make_request('POST', f'/python/students/{student_id}/embedding',
-                                json=embedding_data)
-
+    # Additional methods
     def record_attendance(self, attendance_data: Dict) -> APIResponse:
-        """Ghi nhận điểm danh"""
-        api_logger.info("Recording attendance...")
+        """Record attendance"""
+        api_logger.info(f"📝 Recording attendance...")
         return self._make_request('POST', '/python/attendance', json=attendance_data)
 
-    # Batch operations
-    def batch_record_attendance(self, attendance_records: List[Dict]) -> APIResponse:
-        """Ghi nhận điểm danh hàng loạt"""
-        api_logger.info(f"Batch recording {len(attendance_records)} attendance records...")
-        return self._make_request('POST', '/python/attendance/batch',
-                                json={'records': attendance_records})
+    def save_embedding(self, student_id: str, embedding_data: Dict) -> APIResponse:
+        """Save embedding for student"""
+        api_logger.info(f"💾 Saving embedding for student {student_id}...")
+        return self._make_request('POST', f'/python/students/{student_id}/embedding', json=embedding_data)
 
-    def batch_save_embeddings(self, embeddings_data: List[Dict]) -> APIResponse:
-        """Lưu embeddings hàng loạt"""
-        api_logger.info(f"Batch saving {len(embeddings_data)} embeddings...")
-        return self._make_request('POST', '/python/embeddings/batch',
-                                json={'embeddings': embeddings_data})
-
-    # Additional utility methods
-    def update_camera(self, camera_id: int, camera_data: Dict) -> APIResponse:
-        """Cập nhật thông tin camera"""
-        api_logger.info(f"Updating camera {camera_id}...")
-        return self._make_request('PUT', f'/cameras/{camera_id}', json=camera_data)
-
-    def delete_camera(self, camera_id: int) -> APIResponse:
-        """Xóa camera"""
-        api_logger.info(f"Deleting camera {camera_id}...")
-        return self._make_request('DELETE', f'/cameras/{camera_id}')
-
-    def search_cameras(self, query: str) -> APIResponse:
-        """Tìm kiếm cameras"""
-        api_logger.info(f"Searching cameras: {query}")
-        return self._make_request('GET', '/cameras/search', params={'q': query})
-
-    def get_camera_logs(self, camera_id: int, limit: int = 100) -> APIResponse:
-        """Lấy logs của camera"""
-        api_logger.info(f"Fetching logs for camera {camera_id}...")
-        return self._make_request('GET', f'/cameras/{camera_id}/logs',
-                                params={'limit': limit})
-
-    def get_camera_stats(self) -> APIResponse:
-        """Lấy thống kê cameras"""
-        api_logger.info("Fetching camera statistics...")
-        return self._make_request('GET', '/cameras/stats')
+    def get_camera_count(self) -> APIResponse:
+        """Get camera statistics"""
+        api_logger.info("📊 Fetching camera count...")
+        return self._make_request('GET', '/cameras/count')

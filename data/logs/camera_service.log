@@ -241,3 +241,167 @@
 2025-08-17 15:13:45,659 - camera_service - [32mINFO[0m - Created camera: A501 with RTSP: rtsp://admin:24082003Tl@192.168.101.217:554/ch1/ma...
 2025-08-17 15:13:45,659 - camera_service - [32mINFO[0m - Successfully added camera: A501
 2025-08-17 15:13:45,659 - camera_service - [32mINFO[0m - Successfully loaded 1 cameras out of 1
+2025-08-17 23:14:08,363 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-17 23:14:08,364 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-17 23:14:09,648 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-17 23:14:10,075 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-17 23:14:10,093 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-17 23:14:12,673 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-17 23:14:12,680 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-17 23:14:12,680 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-17 23:14:12,680 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-17 23:14:12,681 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-17 23:14:12,681 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-17 23:14:12,681 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-17 23:19:29,928 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-17 23:19:29,928 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-17 23:19:31,012 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-17 23:19:31,389 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-17 23:19:31,414 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-17 23:19:33,936 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-17 23:19:33,943 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-17 23:19:33,943 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-17 23:19:33,943 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-17 23:19:33,944 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-17 23:19:33,944 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-17 23:19:33,944 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-17 23:20:39,546 - camera_service - INFO - 🔄 Refreshing camera list...
+2025-08-17 23:20:39,546 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-17 23:20:39,551 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 15fps
+2025-08-17 23:20:39,951 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 15fps
+2025-08-17 23:20:40,031 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-17 23:20:40,031 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-17 23:20:40,038 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-17 23:20:40,038 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-17 23:20:40,039 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-17 23:20:40,039 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-17 23:20:40,039 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-17 23:20:40,039 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-17 23:30:09,797 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-17 23:30:09,797 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-17 23:30:10,754 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-17 23:30:11,171 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-17 23:30:11,198 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-17 23:30:13,523 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-17 23:30:13,534 - camera_service - ERROR - Backend API call failed: Yêu cầu không hợp lệ
+2025-08-17 23:32:46,304 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-17 23:32:46,304 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-17 23:32:47,237 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-17 23:32:47,609 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-17 23:32:47,637 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-17 23:32:49,937 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-17 23:32:49,943 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-17 23:32:49,943 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-17 23:32:49,943 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-17 23:32:49,943 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-17 23:32:49,943 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-17 23:32:49,943 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 00:31:10,272 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 00:31:10,272 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 00:31:11,717 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 00:31:12,108 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 00:31:12,129 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 00:31:14,713 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 00:31:14,720 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 00:31:14,720 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 00:31:14,720 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 00:31:14,720 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 00:31:14,720 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 00:31:14,720 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 00:37:20,793 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 00:37:20,793 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 00:37:22,053 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 00:37:22,508 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 00:37:22,544 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 00:38:54,375 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 00:38:54,375 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 00:38:56,208 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 00:38:56,649 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 00:38:56,675 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 00:39:19,748 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 00:39:19,748 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 00:39:21,407 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 00:39:21,851 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 00:39:21,878 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 00:40:57,253 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 00:40:57,253 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 00:40:58,624 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 00:40:59,079 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 00:40:59,103 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 00:42:45,472 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 00:42:45,472 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 00:42:46,793 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 00:42:47,245 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 00:42:47,272 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:02:05,592 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 01:02:05,592 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 01:02:07,033 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 01:02:07,493 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 01:02:07,514 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:02:11,594 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 01:02:11,600 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 01:02:11,600 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 01:02:11,600 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:02:11,600 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 01:02:11,600 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 01:02:11,600 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 01:04:35,679 - camera_service - INFO - 🔄 Refreshing camera list...
+2025-08-18 01:04:35,680 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 01:04:35,684 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 15fps
+2025-08-18 01:04:36,015 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 15fps
+2025-08-18 01:04:36,097 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:04:36,097 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 01:04:36,104 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 01:04:36,104 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 01:04:36,104 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:04:36,104 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 01:04:36,104 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 01:04:36,104 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 01:07:02,533 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 01:07:02,533 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 01:07:03,951 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 01:07:04,421 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 01:07:04,460 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:07:08,630 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 01:07:08,635 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 01:07:08,635 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 01:07:08,635 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:07:08,635 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 01:07:08,635 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 01:07:08,635 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 01:10:15,129 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 01:10:15,129 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 01:10:16,413 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 01:10:16,874 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 01:10:16,914 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:10:20,956 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 01:10:20,964 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 01:10:20,964 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 01:10:20,964 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:10:20,965 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 01:10:20,965 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 01:10:20,965 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 01:14:46,356 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 01:14:46,356 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 01:14:47,627 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 01:14:48,088 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 01:14:48,115 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:14:52,046 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 01:14:52,054 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 01:14:52,054 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 01:14:52,054 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:14:52,054 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 01:14:52,054 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 01:14:52,054 - camera_service - INFO - 📊 Total cameras available: 3
+2025-08-18 01:18:48,099 - camera_service - INFO - 🚀 Initialized High Performance Camera Service
+2025-08-18 01:18:48,099 - camera_service - INFO - 🔍 Detecting webcam devices...
+2025-08-18 01:18:49,389 - camera_service - INFO - 📹 Found webcam 0: 1920x1080 @ 30fps
+2025-08-18 01:18:49,839 - camera_service - INFO - 📹 Found webcam 1: 640x480 @ 30fps
+2025-08-18 01:18:49,877 - camera_service - INFO - ✅ Detected 2 webcam devices
+2025-08-18 01:18:53,539 - camera_service - INFO - 🔄 Loading cameras from backend...
+2025-08-18 01:18:53,546 - camera_service - INFO - 📊 Processing 1 cameras from backend
+2025-08-18 01:18:53,546 - camera_service - INFO - ✅ Created camera: A501 (rtsp)
+2025-08-18 01:18:53,547 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:18:53,547 - camera_service - INFO - 📹 Added webcam option: 🎥 Webcam 1 (640x480)
+2025-08-18 01:18:53,547 - camera_service - INFO - ✅ Successfully loaded 1 cameras
+2025-08-18 01:18:53,547 - camera_service - INFO - 📊 Total cameras available: 3

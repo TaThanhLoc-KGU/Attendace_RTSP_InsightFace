@@ -207,7 +207,7 @@ On Windows, ensure you have a complete Python installation.
         return True
 
     def setup_environment(self):
-        """Setup application environment"""
+        """Setup application environment - FIXED Unicode logging"""
         try:
             # Apply command line arguments
             self.apply_command_line_args()
@@ -215,15 +215,15 @@ On Windows, ensure you have a complete Python installation.
             # Create necessary directories
             config.create_directories()
 
-            # Setup logging
-            app_logger.info("🚀 Starting Student Attendance System")
-            app_logger.info(f"📂 Project root: {project_root}")
-            app_logger.info(f"🐍 Python version: {sys.version}")
-            app_logger.info(f"💻 Platform: {sys.platform}")
-            app_logger.info(f"🎯 Arguments: {vars(self.args)}")
+            # Setup logging - SAFE logging without emoji
+            app_logger.info("Starting Student Attendance System")
+            app_logger.info(f"Project root: {project_root}")
+            app_logger.info(f"Python version: {sys.version}")
+            app_logger.info(f"Platform: {sys.platform}")
+            app_logger.info(f"Arguments: {vars(self.args)}")
 
             # Log configuration
-            app_logger.info(f"⚙️ Configuration:")
+            app_logger.info("Configuration:")
             app_logger.info(f"  - Backend URL: {config.BACKEND_URL}")
             app_logger.info(f"  - Recognition threshold: {config.RECOGNITION_THRESHOLD}")
             app_logger.info(f"  - Frame processing interval: {config.FRAME_PROCESSING_INTERVAL}")
@@ -236,17 +236,18 @@ On Windows, ensure you have a complete Python installation.
             # Check cache age
             cache_age = self.embedding_cache.get_cache_age()
             if cache_age:
-                app_logger.info(f"📂 Cache age: {cache_age}")
+                app_logger.info(f"Cache age: {cache_age}")
                 if self.embedding_cache.is_cache_expired():
-                    app_logger.warning("⚠️ Cache is expired, will sync from backend")
+                    app_logger.warning("Cache is expired, will sync from backend")
             else:
-                app_logger.info("📂 No cache found, will sync from backend")
+                app_logger.info("No cache found, will sync from backend")
 
             return True
 
         except Exception as e:
-            app_logger.error(f"❌ Failed to setup environment: {e}")
-            app_logger.error(traceback.format_exc())
+            # FIXED: Safe error logging without emoji
+            app_logger.error(f"Failed to setup environment: {e}")
+            app_logger.error(f"Traceback: {traceback.format_exc()}")
             return False
 
     def show_splash_screen(self):
