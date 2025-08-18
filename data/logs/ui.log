@@ -15564,3 +15564,274 @@
 2025-08-18 01:19:43,038 - ui - INFO - 📺 Camera resolution: 640x480
 2025-08-18 01:19:43,039 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
 2025-08-18 01:19:43,039 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 01:27:04,145 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 01:27:04,182 - ui - INFO - ✅ Loaded 52 student embeddings
+2025-08-18 01:27:04,197 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 01:27:12,214 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 01:27:15,228 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 01:27:15,366 - ui - INFO - 📹 Created FIXED stream widget for camera: A501
+2025-08-18 01:27:15,367 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 01:27:17,379 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 01:27:17,379 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 01:27:17,386 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 01:27:47,450 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 01:27:47,464 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 01:27:47,498 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:27:47,501 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:27:47,502 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 01:27:47,517 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 01:27:47,519 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 01:27:49,500 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 01:27:49,501 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:27:49,501 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 01:27:52,789 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 01:27:52,790 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:27:52,791 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 01:27:52,791 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 01:27:52,791 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 01:27:52,792 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 01:27:53,121 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 01:27:53,122 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 01:27:53,123 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:09:00,892 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:09:00,893 - ui - ERROR - ❌ Error loading initial data: 'FaceRecognitionService' object has no attribute 'load_student_embeddings'
+2025-08-18 10:09:18,390 - ui - ERROR - ❌ Error during closing: can't invoke "destroy" command: application has been destroyed
+2025-08-18 10:14:27,872 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:14:27,900 - ui - INFO - ✅ Loaded 52 student embeddings
+2025-08-18 10:14:27,913 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 10:14:35,922 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 10:14:38,930 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:14:39,040 - ui - INFO - 📹 Created FIXED stream widget for camera: A501
+2025-08-18 10:14:39,040 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 10:14:41,040 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:14:41,041 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 10:14:41,046 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:15:11,154 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:15:11,166 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:15:11,184 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:15:11,185 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:15:11,186 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:15:11,196 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:15:11,198 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:15:13,192 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:15:13,192 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:15:13,193 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 10:15:15,593 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 10:15:15,594 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:15:15,594 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:15:15,595 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:15:15,595 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:15:15,596 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 10:15:15,901 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 10:15:15,902 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:15:15,903 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:15:40,115 - ui - INFO - 🎯 Face recognition disabled
+2025-08-18 10:15:40,579 - ui - INFO - 📝 Auto attendance disabled
+2025-08-18 10:23:53,930 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:23:53,945 - ui - WARNING - ⚠️ Failed to load embeddings: Request failed: Expecting value: line 1 column 1 (char 0)
+2025-08-18 10:23:53,955 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 10:24:01,964 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 10:24:04,971 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:24:05,083 - ui - INFO - 📹 Created FIXED stream widget for camera: A501
+2025-08-18 10:24:05,083 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 10:24:07,088 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:24:07,089 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 10:24:07,094 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:24:37,110 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:24:37,121 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:24:37,140 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:24:37,142 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:24:37,143 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:24:37,151 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:24:37,153 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:24:39,145 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:24:39,146 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:24:39,146 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 10:24:41,885 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 10:24:41,886 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:24:41,886 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:24:41,887 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:24:41,887 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:24:41,888 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 10:24:42,272 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 10:24:42,272 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:24:42,273 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:24:47,204 - ui - INFO - 🎯 Face recognition disabled
+2025-08-18 10:24:47,624 - ui - INFO - 📝 Auto attendance disabled
+2025-08-18 10:24:53,337 - ui - INFO - 🎯 Face recognition disabled
+2025-08-18 10:24:53,679 - ui - INFO - 🎯 Face recognition enabled
+2025-08-18 10:24:54,221 - ui - INFO - 📝 Auto attendance disabled
+2025-08-18 10:24:54,423 - ui - INFO - 📝 Auto attendance enabled
+2025-08-18 10:26:47,047 - ui - ERROR - ❌ Error during closing: can't invoke "destroy" command: application has been destroyed
+2025-08-18 10:43:50,529 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:43:50,656 - ui - INFO - ✅ Loaded 52 student embeddings
+2025-08-18 10:43:50,666 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 10:43:58,678 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 10:44:01,694 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:44:01,798 - ui - INFO - 📹 Created FIXED stream widget for camera: A501
+2025-08-18 10:44:01,799 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 10:44:03,806 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:44:03,806 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 10:44:03,811 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:44:33,892 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:44:33,901 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:44:33,920 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:44:33,923 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:44:33,923 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:44:33,933 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:44:33,935 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:44:35,924 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:44:35,925 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:44:35,925 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 10:44:38,508 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 10:44:38,509 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:44:38,509 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:44:38,510 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:44:38,511 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:44:38,511 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 10:44:38,840 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 10:44:38,840 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:44:38,841 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:46:01,790 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:46:01,796 - ui - WARNING - ⚠️ Failed to load embeddings: 'Config' object has no attribute 'SPRING_BOOT_API_URL'
+2025-08-18 10:46:01,805 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 10:46:09,820 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 10:46:12,829 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:46:12,934 - ui - INFO - 📹 Created FIXED stream widget for camera: A501
+2025-08-18 10:46:12,934 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 10:46:14,942 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:46:14,942 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 10:46:14,947 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:46:45,021 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:46:45,031 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:46:45,051 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:46:45,053 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:46:45,054 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:46:45,062 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:46:45,064 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:46:47,052 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:46:47,053 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:46:47,053 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 10:46:49,802 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 10:46:49,803 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:46:49,803 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:46:49,803 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:46:49,804 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:46:49,804 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 10:46:50,091 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 10:46:50,092 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:46:50,092 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:47:39,030 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:47:39,083 - ui - INFO - ✅ Loaded 52 student embeddings
+2025-08-18 10:47:39,095 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 10:47:47,109 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 10:47:50,124 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:47:50,225 - ui - INFO - 📹 Created FIXED stream widget for camera: A501
+2025-08-18 10:47:50,226 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 10:47:52,240 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:47:52,240 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 10:47:52,245 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:48:22,314 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 10:48:22,331 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:48:22,351 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:22,353 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:22,354 - ui - INFO - ✅ Root window ready for PhotoImage: .
+2025-08-18 10:48:22,363 - ui - INFO - 📹 Created FIXED stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:22,365 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:24,356 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:48:24,356 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:24,357 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 10:48:26,867 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 10:48:26,867 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:26,868 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:26,869 - ui - INFO - 🚀 Auto-starting camera stream...
+2025-08-18 10:48:26,869 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:26,869 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 10:48:27,177 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 10:48:27,178 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:27,178 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:36,136 - ui - ERROR - ❌ Error in video loop: Unknown C++ exception from OpenCV code
+2025-08-18 10:48:36,277 - ui - WARNING - Failed to read frame (consecutive: 2)
+2025-08-18 10:48:36,378 - ui - WARNING - Failed to read frame (consecutive: 3)
+2025-08-18 10:48:36,479 - ui - WARNING - Failed to read frame (consecutive: 4)
+2025-08-18 10:48:36,579 - ui - WARNING - Failed to read frame (consecutive: 5)
+2025-08-18 10:48:36,680 - ui - WARNING - Failed to read frame (consecutive: 6)
+2025-08-18 10:48:36,770 - ui - WARNING - Failed to read frame (consecutive: 1)
+2025-08-18 10:48:36,780 - ui - WARNING - Failed to read frame (consecutive: 7)
+2025-08-18 10:48:36,871 - ui - WARNING - Failed to read frame (consecutive: 2)
+2025-08-18 10:48:36,881 - ui - WARNING - Failed to read frame (consecutive: 8)
+2025-08-18 10:48:36,972 - ui - WARNING - Failed to read frame (consecutive: 3)
+2025-08-18 10:48:36,982 - ui - WARNING - Failed to read frame (consecutive: 9)
+2025-08-18 10:48:37,072 - ui - WARNING - Failed to read frame (consecutive: 4)
+2025-08-18 10:48:37,082 - ui - WARNING - Failed to read frame (consecutive: 10)
+2025-08-18 10:48:37,083 - ui - ERROR - Too many consecutive failures, stopping video loop
+2025-08-18 10:48:37,083 - ui - INFO - 🎬 Video loop ended for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:37,173 - ui - WARNING - Failed to read frame (consecutive: 5)
+2025-08-18 10:48:37,273 - ui - WARNING - Failed to read frame (consecutive: 6)
+2025-08-18 10:48:37,374 - ui - WARNING - Failed to read frame (consecutive: 7)
+2025-08-18 10:48:37,474 - ui - WARNING - Failed to read frame (consecutive: 8)
+2025-08-18 10:48:37,575 - ui - WARNING - Failed to read frame (consecutive: 9)
+2025-08-18 10:48:37,675 - ui - WARNING - Failed to read frame (consecutive: 10)
+2025-08-18 10:48:37,675 - ui - ERROR - Too many consecutive failures, stopping video loop
+2025-08-18 10:48:37,675 - ui - INFO - 🎬 Video loop ended for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:45,778 - ui - INFO - ⏹️ Stopping stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:45,779 - ui - INFO - ✅ Stopped streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 10:48:47,511 - ui - INFO - ⏹️ Stopping stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:47,512 - ui - INFO - ✅ Stopped streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:48,385 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:48,386 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 10:48:50,682 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 10:48:50,684 - ui - INFO - 🎥 Video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:48:50,701 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 10:53:51,729 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 10:53:51,759 - ui - INFO - ✅ Loaded 52 student embeddings
+2025-08-18 10:53:51,772 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 10:53:59,787 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 10:54:02,801 - ui - ERROR - ❌ Error creating camera stream: Too early to create variable: no default root window
+2025-08-18 10:54:05,805 - ui - ERROR - ❌ Error creating camera stream: Too early to create variable: no default root window
+2025-08-18 10:54:08,800 - ui - ERROR - ❌ Error creating camera stream: Too early to create variable: no default root window
+2025-08-18 10:54:14,511 - ui - ERROR - ❌ Error during closing: can't invoke "destroy" command: application has been destroyed
+2025-08-18 11:02:26,191 - ui - INFO - ✅ Backend connected successfully
+2025-08-18 11:02:26,243 - ui - INFO - ✅ Loaded 52 student embeddings
+2025-08-18 11:02:26,250 - ui - INFO - ✅ Loaded 3 cameras
+2025-08-18 11:02:34,258 - ui - INFO - 🚀 Auto-starting 3 cameras
+2025-08-18 11:02:37,333 - ui - WARNING - ⚠️ Cannot create BooleanVar yet: Too early to create variable: no default root window
+2025-08-18 11:02:37,371 - ui - INFO - 📹 Created stream widget for camera: A501
+2025-08-18 11:02:37,372 - ui - INFO - ✅ Created stream for camera: A501
+2025-08-18 11:02:39,383 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:02:39,384 - ui - INFO - 🚀 Auto-starting camera: A501
+2025-08-18 11:02:39,384 - ui - INFO - 🎬 Starting stream for camera: A501
+2025-08-18 11:02:39,389 - ui - INFO - 📺 Opening camera source: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 11:03:09,469 - ui - ERROR - ❌ Error starting stream: Cannot open camera: rtsp://admin:24082003Tl@192.168.137.195:554/ch1/main
+2025-08-18 11:03:09,490 - ui - WARNING - ⚠️ Cannot create BooleanVar yet: Too early to create variable: no default root window
+2025-08-18 11:03:09,495 - ui - INFO - 📹 Created stream widget for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 11:03:09,497 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 11:03:09,504 - ui - WARNING - ⚠️ Cannot create BooleanVar yet: Too early to create variable: no default root window
+2025-08-18 11:03:09,507 - ui - INFO - 📹 Created stream widget for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 11:03:09,509 - ui - INFO - ✅ Created stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 11:03:11,510 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:03:11,511 - ui - INFO - 🚀 Auto-starting camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 11:03:11,511 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 11:03:11,512 - ui - INFO - 📺 Opening camera source: 0
+2025-08-18 11:03:13,476 - ui - INFO - 📺 Camera resolution: 1920x1080
+2025-08-18 11:03:13,477 - ui - INFO - 🎥 FIXED video loop started for camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 11:03:13,477 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 0 (1920x1080)
+2025-08-18 11:03:13,478 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:03:13,478 - ui - INFO - 🚀 Auto-starting camera: 🎥 Webcam 1 (640x480)
+2025-08-18 11:03:13,478 - ui - INFO - 🎬 Starting stream for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 11:03:13,478 - ui - INFO - 📺 Opening camera source: 1
+2025-08-18 11:03:13,720 - ui - INFO - 📺 Camera resolution: 640x480
+2025-08-18 11:03:13,721 - ui - INFO - 🎥 FIXED video loop started for camera: 🎥 Webcam 1 (640x480)
+2025-08-18 11:03:13,721 - ui - INFO - ✅ Started streaming camera: 🎥 Webcam 1 (640x480)
+2025-08-18 11:04:39,925 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:04:39,927 - ui - INFO - 🎯 Recognition disabled for 🎥 Webcam 1 (640x480)
+2025-08-18 11:04:40,748 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:04:40,748 - ui - INFO - 📝 Auto attendance disabled for 🎥 Webcam 1 (640x480)
+2025-08-18 11:04:41,237 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:04:41,238 - ui - INFO - 📝 Auto attendance enabled for 🎥 Webcam 1 (640x480)
+2025-08-18 11:04:41,969 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:04:41,970 - ui - INFO - 🎯 Recognition enabled for 🎥 Webcam 1 (640x480)
+2025-08-18 11:04:42,224 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:04:42,225 - ui - INFO - 🎯 Recognition disabled for 🎥 Webcam 1 (640x480)
+2025-08-18 11:04:42,537 - ui - ERROR - ❌ Error creating control vars: Too early to create variable: no default root window
+2025-08-18 11:04:42,537 - ui - INFO - 🎯 Recognition enabled for 🎥 Webcam 1 (640x480)

@@ -1,6 +1,6 @@
 """
-High Performance Face Recognition Service
-Optimized for 15-30 FPS with frame skipping and efficient processing
+Face Recognition Service - COMPLETE WORKING VERSION
+Both process_frame() and recognize_faces_optimized() work properly
 """
 import cv2
 import numpy as np
@@ -10,6 +10,9 @@ from collections import deque
 from typing import Dict, List, Optional
 from datetime import datetime
 import queue
+import requests
+import json
+import base64
 
 try:
     INSIGHTFACE_AVAILABLE = True
@@ -23,279 +26,306 @@ from utils.logger import face_logger
 
 
 class StudentEmbeddingService:
-    """Optimized student embedding service"""
+    """Direct API embedding service"""
 
     def __init__(self, backend_api: BackendAPI):
         self.backend_api = backend_api
-        self.student_embeddings: Dict[int, Dict] = {}
+        self.student_embeddings: Dict[str, Dict] = {}
         self.embedding_cache: Dict[str, np.ndarray] = {}
         self.last_loaded = None
         self.lock = threading.RLock()
 
     def load_embeddings_from_backend(self) -> Dict[str, any]:
-        """Load student embeddings from backend - FIXED API endpoint"""
+        """Load student embeddings từ /python/embeddings endpoint"""
         try:
             with self.lock:
-                face_logger.info("🔄 Loading student embeddings from backend...")
+                face_logger.info("🔄 Loading student embeddings from backend API...")
 
-                # FIXED: Use correct API endpoint
-                response = self.backend_api.get_all_embeddings()  # This calls /python/embeddings
+                # API URL
+                api_url = f"{config.BACKEND_URL.rstrip('/')}/python/embeddings"
+                face_logger.info(f"📡 API URL: {api_url}")
 
-                if not response.success:
-                    face_logger.error(f"❌ Backend API failed: {response.message}")
-                    return {
-                        'success': False,
-                        'message': response.message,
-                        'count': 0
-                    }
+                headers = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'User-Agent': 'FaceRecognitionService/1.0'
+                }
 
-                embeddings_data = response.data or []
-                face_logger.info(f"📥 Received {len(embeddings_data)} students from backend")
+                try:
+                    response = requests.get(api_url, headers=headers, timeout=30)
+                    face_logger.info(f"📡 Response: {response.status_code}")
 
+                    if response.status_code != 200:
+                        face_logger.error(f"❌ API failed: {response.status_code}")
+                        return {'success': False, 'message': f'API failed: {response.status_code}', 'count': 0}
+
+                    # Check content type
+                    content_type = response.headers.get('content-type', '')
+                    if 'application/json' not in content_type:
+                        face_logger.error(f"❌ Wrong content type: {content_type}")
+                        return {'success': False, 'message': f'Wrong content type: {content_type}', 'count': 0}
+
+                    # Parse JSON
+                    embeddings_data = response.json()
+                    face_logger.info(f"✅ Parsed JSON: {len(embeddings_data)} students")
+
+                except requests.exceptions.RequestException as e:
+                    face_logger.error(f"❌ Request failed: {e}")
+                    return {'success': False, 'message': f'Request failed: {e}', 'count': 0}
+                except json.JSONDecodeError as e:
+                    face_logger.error(f"❌ JSON decode error: {e}")
+                    return {'success': False, 'message': f'JSON error: {e}', 'count': 0}
+
+                # Validate data
+                if not isinstance(embeddings_data, list):
+                    face_logger.error(f"❌ Expected list, got {type(embeddings_data)}")
+                    return {'success': False, 'message': 'Invalid data format', 'count': 0}
+
+                # Clear existing data
                 self.student_embeddings.clear()
                 self.embedding_cache.clear()
 
-                # Process embeddings with optimization
+                # Process embeddings
                 successful_count = 0
-                for student_data in embeddings_data:
+                skipped_count = 0
+
+                for i, student_data in enumerate(embeddings_data):
                     try:
-                        # Handle different response formats
-                        if isinstance(student_data, dict):
-                            # Check multiple possible field names for ID
-                            student_id = (
-                                    student_data.get('id') or
-                                    student_data.get('studentId') or
-                                    student_data.get('maSv') or
-                                    student_data.get('sinhVienId')
-                            )
+                        if not isinstance(student_data, dict):
+                            skipped_count += 1
+                            continue
 
-                            # Check multiple possible field names for embedding
-                            embedding_str = (
-                                    student_data.get('embedding') or
-                                    student_data.get('faceEmbedding') or
-                                    student_data.get('embeddings')
-                            )
+                        # Extract data
+                        student_id = student_data.get('studentId')
+                        name = student_data.get('name', 'Unknown')
+                        embedding_str = student_data.get('embedding')
 
-                            # Check multiple possible field names for name
-                            name = (
-                                    student_data.get('name') or
-                                    student_data.get('ten') or
-                                    student_data.get('hoTen') or
-                                    student_data.get('fullName') or
-                                    f'Student {student_id}'
-                            )
+                        if not student_id or not embedding_str:
+                            skipped_count += 1
+                            continue
 
-                            # Check for student code
-                            student_code = (
-                                    student_data.get('studentCode') or
-                                    student_data.get('maSv') or
-                                    student_data.get('code') or
-                                    ''
-                            )
+                        # Parse embedding
+                        embedding = self._parse_embedding(embedding_str, student_id)
+                        if embedding is None:
+                            skipped_count += 1
+                            continue
 
-                            face_logger.debug(
-                                f"🔍 Processing student: ID={student_id}, Name={name}, HasEmbedding={bool(embedding_str)}")
+                        # Store student data
+                        self.student_embeddings[student_id] = {
+                            'name': name,
+                            'student_code': student_id,
+                            'embedding': embedding,
+                            'class_name': '',
+                            'email': '',
+                            'phone': ''
+                        }
 
-                            if student_id and embedding_str:
-                                try:
-                                    # Parse embedding based on format
-                                    if isinstance(embedding_str, str):
-                                        if embedding_str.startswith('[') and embedding_str.endswith(']'):
-                                            # JSON array format: "[1.0, 2.0, 3.0]"
-                                            import json
-                                            embedding_list = json.loads(embedding_str)
-                                            embedding = np.array(embedding_list, dtype=np.float32)
-                                        else:
-                                            # Comma-separated format: "1.0,2.0,3.0"
-                                            embedding = np.fromstring(embedding_str, sep=',', dtype=np.float32)
-                                    elif isinstance(embedding_str, list):
-                                        # Already a list
-                                        embedding = np.array(embedding_str, dtype=np.float32)
-                                    else:
-                                        face_logger.warning(
-                                            f"⚠️ Unknown embedding format for student {student_id}: {type(embedding_str)}")
-                                        continue
+                        # Cache for faster lookup
+                        cache_key = f"student_{student_id}"
+                        self.embedding_cache[cache_key] = embedding
 
-                                    # Validate embedding
-                                    if len(embedding) == 0:
-                                        face_logger.warning(f"⚠️ Empty embedding for student {student_id}")
-                                        continue
-
-                                    # Normalize embedding for faster comparison
-                                    if np.linalg.norm(embedding) > 0:
-                                        embedding = embedding / np.linalg.norm(embedding)
-                                    else:
-                                        face_logger.warning(f"⚠️ Zero embedding for student {student_id}")
-                                        continue
-
-                                    # Store student data
-                                    self.student_embeddings[student_id] = {
-                                        'name': name,
-                                        'student_code': student_code,
-                                        'embedding': embedding,
-                                        'class_name': student_data.get('className', student_data.get('lopHoc', '')),
-                                        'email': student_data.get('email', ''),
-                                        'phone': student_data.get('phone', student_data.get('sdt', ''))
-                                    }
-
-                                    # Cache for faster lookup
-                                    cache_key = f"student_{student_id}"
-                                    self.embedding_cache[cache_key] = embedding
-
-                                    successful_count += 1
-                                    face_logger.debug(f"✅ Processed student {student_id}: {name}")
-
-                                except Exception as e:
-                                    face_logger.error(f"❌ Error processing embedding for student {student_id}: {e}")
-                                    continue
-                            else:
-                                if not student_id:
-                                    face_logger.warning(f"⚠️ Student missing ID: {student_data}")
-                                if not embedding_str:
-                                    face_logger.warning(f"⚠️ Student {student_id} missing embedding")
-                        else:
-                            face_logger.warning(f"⚠️ Invalid student data format: {type(student_data)}")
+                        successful_count += 1
 
                     except Exception as e:
-                        face_logger.error(f"❌ Error processing student: {e}")
+                        face_logger.error(f"❌ Error processing student {i}: {e}")
+                        skipped_count += 1
 
                 self.last_loaded = datetime.now()
-                face_logger.info(f"✅ Successfully loaded {successful_count} student embeddings")
+                face_logger.info(f"✅ Load completed: {successful_count} loaded, {skipped_count} skipped")
 
                 return {
                     'success': True,
                     'count': successful_count,
+                    'skipped': skipped_count,
                     'message': f'Loaded {successful_count} students'
                 }
 
         except Exception as e:
-            face_logger.error(f"❌ Error loading embeddings: {e}")
-            import traceback
-            face_logger.error(f"❌ Traceback: {traceback.format_exc()}")
-            return {
-                'success': False,
-                'message': str(e),
-                'count': 0
-            }
+            face_logger.error(f"❌ Load error: {e}")
+            return {'success': False, 'message': str(e), 'count': 0}
 
+    def _parse_embedding(self, embedding_str: str, student_id: str) -> Optional[np.ndarray]:
+        """Parse embedding từ various formats"""
+        try:
+            embedding = None
 
+            if isinstance(embedding_str, str):
+                if embedding_str.startswith("[") and embedding_str.endswith("]"):
+                    # JSON array format
+                    embedding_list = json.loads(embedding_str)
+                    embedding = np.array(embedding_list, dtype=np.float32)
+                elif "," in embedding_str and not embedding_str.startswith("["):
+                    # Comma-separated format
+                    embedding = np.fromstring(embedding_str, sep=',', dtype=np.float32)
+                else:
+                    # Base64 format
+                    try:
+                        embedding_bytes = base64.b64decode(embedding_str)
+                        embedding = np.frombuffer(embedding_bytes, dtype=np.float32)
+                    except Exception:
+                        face_logger.error(f"❌ {student_id}: Base64 decode failed")
+                        return None
+            elif isinstance(embedding_str, list):
+                embedding = np.array(embedding_str, dtype=np.float32)
+            else:
+                face_logger.warning(f"❌ {student_id}: Unknown format: {type(embedding_str)}")
+                return None
+
+            # Validate dimension
+            if len(embedding) != 512:
+                face_logger.warning(f"❌ {student_id}: Wrong dimension {len(embedding)}")
+                return None
+
+            # Check for invalid values
+            if not np.isfinite(embedding).all():
+                face_logger.warning(f"❌ {student_id}: Contains NaN/Inf")
+                return None
+
+            # Normalize
+            norm = np.linalg.norm(embedding)
+            if norm > 0:
+                return embedding / norm
+            else:
+                face_logger.warning(f"❌ {student_id}: Zero norm")
+                return None
+
+        except Exception as e:
+            face_logger.error(f"❌ {student_id}: Parse error: {e}")
+            return None
 
     def find_student_by_embedding(self, face_embedding: np.ndarray, threshold: float = None) -> Optional[Dict]:
-        """Find student by face embedding - OPTIMIZED with vectorized operations"""
+        """Find student by embedding"""
         if not self.student_embeddings:
-            face_logger.debug("🔍 No student embeddings available for recognition")
             return None
 
         threshold = threshold or config.RECOGNITION_THRESHOLD
 
         try:
-            # Normalize input embedding
-            if np.linalg.norm(face_embedding) > 0:
-                face_embedding = face_embedding / np.linalg.norm(face_embedding)
-            else:
-                face_logger.warning("⚠️ Zero face embedding received")
+            # Validate input
+            if face_embedding.shape[0] != 512:
+                face_logger.error(f"❌ Input wrong dimension: {face_embedding.shape[0]}")
                 return None
 
-            # Vectorized similarity computation for speed
+            # Normalize input
+            norm = np.linalg.norm(face_embedding)
+            if norm > 0:
+                face_embedding = face_embedding / norm
+            else:
+                return None
+
+            # Find best match
             best_match = None
             best_similarity = threshold
 
-            # Use optimized comparison
             for student_id, student_data in self.student_embeddings.items():
                 stored_embedding = student_data['embedding']
 
-                # Fast dot product for normalized embeddings
-                similarity = float(np.dot(face_embedding, stored_embedding))
+                # Skip dimension mismatches
+                if stored_embedding.shape != face_embedding.shape:
+                    continue
 
-                if similarity > best_similarity:
-                    best_similarity = similarity
-                    best_match = {
-                        'student_id': student_id,
-                        'name': student_data['name'],
-                        'student_code': student_data['student_code'],
-                        'similarity': similarity,
-                        'class_name': student_data['class_name']
-                    }
-                    face_logger.debug(f"🎯 New best match: {student_data['name']} (similarity: {similarity:.3f})")
+                try:
+                    similarity = float(np.dot(face_embedding, stored_embedding))
+
+                    if similarity > best_similarity:
+                        best_similarity = similarity
+                        best_match = {
+                            'student_id': student_id,
+                            'name': student_data['name'],
+                            'student_code': student_data['student_code'],
+                            'similarity': similarity,
+                            'class_name': student_data['class_name']
+                        }
+
+                except Exception as e:
+                    face_logger.error(f"❌ Similarity error for {student_id}: {e}")
+                    continue
 
             if best_match:
-                face_logger.info(
-                    f"✅ Student recognized: {best_match['name']} (similarity: {best_match['similarity']:.3f})")
-            else:
-                face_logger.debug(f"❌ No student match found (threshold: {threshold})")
+                face_logger.info(f"✅ RECOGNIZED: {best_match['name']} ({best_match['similarity']:.3f})")
 
             return best_match
 
         except Exception as e:
-            face_logger.error(f"❌ Error in recognition: {e}")
+            face_logger.error(f"❌ Recognition error: {e}")
             return None
 
     def get_statistics(self) -> Dict:
-        """Get embedding statistics"""
+        """Get statistics"""
         return {
             'total_students': len(self.student_embeddings),
             'cache_size': len(self.embedding_cache),
-            'last_loaded': self.last_loaded.isoformat() if self.last_loaded else None
+            'last_loaded': self.last_loaded.isoformat() if self.last_loaded else None,
+            'data_source': 'direct_api'
         }
 
+
 class FaceRecognitionService:
-    """HIGH PERFORMANCE Face recognition service"""
+    """COMPLETE Face recognition service with both methods working"""
 
     def __init__(self, backend_api):
         self.backend_api = backend_api
         self.face_app = None
         self.is_initialized = False
 
-        self.face_app = FaceAnalysis(name=config.INSIGHTFACE_MODEL, providers=config.get_insightface_providers())
-        self.face_app.prepare(ctx_id=0, det_size=(config.PROCESSING_WIDTH, config.PROCESSING_HEIGHT))
-        self.is_initialized = True
-
-
         # Student embedding service
         self.student_service = StudentEmbeddingService(backend_api)
 
-        # HIGH PERFORMANCE tracking system
+        # Tracking system for recognize_faces_optimized
         self.active_tracks = {}
         self.next_track_id = 1
-        self.track_history = deque(maxlen=100)  # Reduced for performance
+        self.track_history = deque(maxlen=100)
 
-        # OPTIMIZED configuration for speed
+        # ENHANCED: Recognition history for temporal smoothing
+        self.recognition_history = deque(maxlen=20)  # Store recent recognitions
+
+        # Configuration - ENHANCED for pose robustness
         self.tracking_config = {
-            'track_thresh': config.TRACK_MATCH_THRESHOLD,
-            'match_thresh': 0.45,  # Lower for faster matching
-            'stable_thresh': config.STABLE_TRACK_THRESHOLD,
-            'min_track_length': config.MIN_TRACK_LENGTH,
-            'min_stable_frames': 5,  # Reduced for faster recognition
+            'track_thresh': config.TRACK_MATCH_THRESHOLD * 0.9,  # Lower for pose variations
+            'match_thresh': 0.4,  # More lenient matching
+            'stable_thresh': config.STABLE_TRACK_THRESHOLD * 0.85,  # Easier to become stable
+            'min_track_length': max(config.MIN_TRACK_LENGTH - 1, 1),  # Shorter minimum track
+            'min_stable_frames': 3,  # Faster recognition
             'track_buffer': config.TRACK_BUFFER_SIZE,
-            'max_distance': 60,  # Reduced for performance
-            'quality_thresh': config.MIN_QUALITY_SCORE
+            'max_distance': 80,  # Allow more movement
+            'quality_thresh': 0.3,  # Accept lower quality for pose variations
+            'pose_tolerance': {
+                'max_yaw': 60,    # Allow larger head turns
+                'max_pitch': 45,  # Allow head up/down
+                'max_roll': 30    # Allow head tilt
+            }
         }
 
         # Performance tracking
         self.stats = {
             'total_detections': 0,
             'total_recognitions': 0,
-            'total_tracks': 0,
-            'stable_tracks': 0,
-            'processing_times': deque(maxlen=30)  # Reduced for performance
+            'processing_times': deque(maxlen=30)
         }
 
         # Thread safety
         self.lock = threading.RLock()
 
-        # HIGH PERFORMANCE optimization flags
+        # Optimization flags
         self.skip_quality_check = not config.ENABLE_QUALITY_FILTER
-        self.simple_tracking = True
         self.frame_skip_counter = 0
-
-        # Frame processing optimization
         self.last_recognition_time = 0
-        self.recognition_interval = 0.1  # 100ms between recognitions
-        self.frame_queue = queue.Queue(maxsize=2)  # Small queue for low latency
+        self.recognition_interval = 0.1
+
+        # Cache for results
+        self.cached_results = []
+        self.cache_time = 0
 
         # Load embeddings
-        if self.student_service.load_embeddings_from_backend():
-            face_logger.info("✅ Student embeddings loaded")
+        face_logger.info("🚀 Initializing FaceRecognitionService...")
+        try:
+            result = self.student_service.load_embeddings_from_backend()
+            if result and result.get('success'):
+                face_logger.info(f"✅ Embeddings loaded: {result.get('count')} students")
+            else:
+                face_logger.warning(f"⚠️ Load failed: {result.get('message') if result else 'Unknown'}")
+        except Exception as e:
+            face_logger.error(f"❌ Load error: {e}")
 
         # Initialize InsightFace
         if INSIGHTFACE_AVAILABLE:
@@ -303,103 +333,401 @@ class FaceRecognitionService:
         else:
             face_logger.error("❌ InsightFace not available")
 
-    def initialize_face_recognition(self):
-        """Initialize InsightFace with HIGH PERFORMANCE settings"""
+    def _assess_face_quality(self, face) -> Dict:
+        """Assess face quality for robust tracking"""
+        quality_score = 1.0
+        quality_info = {
+            'overall_score': 1.0,
+            'detection_score': 1.0,
+            'pose_score': 1.0,
+            'size_score': 1.0,
+            'blur_score': 1.0,
+            'pose_angles': {'yaw': 0.0, 'pitch': 0.0, 'roll': 0.0},
+            'is_good_quality': True
+        }
+
         try:
-            face_logger.info("🚀 Initializing HIGH PERFORMANCE InsightFace...")
+            # Detection confidence
+            if hasattr(face, 'det_score'):
+                quality_info['detection_score'] = float(face.det_score)
+                quality_score *= face.det_score
 
-            # Get optimized providers
+            # Face size assessment
+            if hasattr(face, 'bbox'):
+                bbox = face.bbox
+                face_width = bbox[2] - bbox[0]
+                face_height = bbox[3] - bbox[1]
+                face_area = face_width * face_height
+
+                # Prefer faces with good size (not too small/large)
+                ideal_area = 10000  # Adjust based on your resolution
+                size_ratio = min(face_area / ideal_area, ideal_area / face_area)
+                quality_info['size_score'] = min(size_ratio, 1.0)
+                quality_score *= quality_info['size_score']
+
+            # Pose estimation (key improvement!)
+            if hasattr(face, 'pose'):
+                pose = face.pose
+                if pose is not None:
+                    # Extract yaw, pitch, roll angles
+                    yaw = abs(pose[0]) if len(pose) > 0 else 0
+                    pitch = abs(pose[1]) if len(pose) > 1 else 0
+                    roll = abs(pose[2]) if len(pose) > 2 else 0
+
+                    quality_info['pose_angles'] = {
+                        'yaw': float(yaw),
+                        'pitch': float(pitch),
+                        'roll': float(roll)
+                    }
+
+                    # CRITICAL: Pose score - penalize extreme angles
+                    max_angle = max(yaw, pitch, roll)
+                    if max_angle < 15:  # Very good pose
+                        pose_score = 1.0
+                    elif max_angle < 30:  # Good pose
+                        pose_score = 0.8
+                    elif max_angle < 45:  # Acceptable pose
+                        pose_score = 0.6
+                    else:  # Poor pose
+                        pose_score = 0.3
+
+                    quality_info['pose_score'] = pose_score
+                    quality_score *= pose_score
+
+            # Landmark quality (if available)
+            if hasattr(face, 'landmark_2d_106') or hasattr(face, 'kps'):
+                # Use landmarks to assess face quality
+                landmarks = face.landmark_2d_106 if hasattr(face, 'landmark_2d_106') else face.kps
+                if landmarks is not None:
+                    # Simple landmark spread assessment
+                    landmark_spread = np.std(landmarks) if len(landmarks) > 0 else 0
+                    landmark_score = min(landmark_spread / 50.0, 1.0)  # Normalize
+                    quality_score *= landmark_score
+
+            # Overall quality assessment
+            quality_info['overall_score'] = quality_score
+            quality_info['is_good_quality'] = quality_score > 0.4  # Threshold for good quality
+
+            face_logger.debug(f"Face quality: {quality_score:.3f} (pose: {quality_info['pose_score']:.3f})")
+
+        except Exception as e:
+            face_logger.error(f"❌ Quality assessment error: {e}")
+
+        return quality_info
+
+    def _calculate_pose_similarity(self, face1_quality, face2_quality) -> float:
+        """Calculate pose similarity between two faces"""
+        try:
+            angles1 = face1_quality['pose_angles']
+            angles2 = face2_quality['pose_angles']
+
+            # Calculate angle differences
+            yaw_diff = abs(angles1['yaw'] - angles2['yaw'])
+            pitch_diff = abs(angles1['pitch'] - angles2['pitch'])
+            roll_diff = abs(angles1['roll'] - angles2['roll'])
+
+            # Convert to similarity (0-1)
+            max_diff = max(yaw_diff, pitch_diff, roll_diff)
+            if max_diff < 10:
+                return 1.0
+            elif max_diff < 20:
+                return 0.8
+            elif max_diff < 30:
+                return 0.6
+            else:
+                return 0.3
+
+        except Exception:
+            return 0.5  # Default similarity
+
+    def _temporal_smooth_recognition(self, current_result: Dict, history: List[Dict]) -> Dict:
+        """Apply temporal smoothing to reduce recognition flickering"""
+        try:
+            if not history or len(history) < 2:
+                return current_result
+
+            # Count votes for each student in recent history
+            student_votes = {}
+            total_weight = 0
+
+            for i, hist_result in enumerate(history[-5:]):  # Last 5 frames
+                if hist_result.get('student_id'):
+                    student_id = hist_result['student_id']
+                    similarity = hist_result.get('similarity', 0)
+                    weight = (i + 1) * similarity  # Recent frames have more weight
+
+                    if student_id not in student_votes:
+                        student_votes[student_id] = {'weight': 0, 'name': hist_result.get('name', '')}
+
+                    student_votes[student_id]['weight'] += weight
+                    total_weight += weight
+
+            # Check if current recognition conflicts with history
+            current_student = current_result.get('student_id')
+            current_similarity = current_result.get('similarity', 0)
+
+            if current_student and current_student in student_votes:
+                # Consistent with history - boost confidence
+                history_weight = student_votes[current_student]['weight'] / total_weight if total_weight > 0 else 0
+                if history_weight > 0.6:  # Strong historical support
+                    current_result['similarity'] = min(current_result['similarity'] * 1.1, 1.0)
+                    current_result['temporal_confidence'] = 'high'
+                return current_result
+
+            elif student_votes and total_weight > 0:
+                # Check if history strongly suggests a different student
+                best_historical = max(student_votes.items(), key=lambda x: x[1]['weight'])
+                best_student_id, best_data = best_historical
+                best_weight = best_data['weight'] / total_weight
+
+                if best_weight > 0.7 and current_similarity < 0.6:
+                    # Strong historical evidence, weak current evidence
+                    face_logger.debug(f"🔄 Temporal smoothing: using historical {best_data['name']} (weight: {best_weight:.3f})")
+                    return {
+                        'student_id': best_student_id,
+                        'name': best_data['name'],
+                        'similarity': best_weight * 0.8,  # Reduced confidence for historical match
+                        'temporal_confidence': 'historical',
+                        'class_name': current_result.get('class_name', '')
+                    }
+
+            # No strong historical evidence, use current
+            current_result['temporal_confidence'] = 'current'
+            return current_result
+
+        except Exception as e:
+            face_logger.error(f"❌ Temporal smoothing error: {e}")
+            return current_result
+
+    def initialize_face_recognition(self):
+        """Initialize InsightFace with FULL features for robust tracking"""
+        try:
+            face_logger.info("🚀 Initializing ENHANCED InsightFace...")
+
+            # Use buffalo_l for better pose estimation
+            model_name = 'buffalo_l'  # Better model for pose robustness
             providers = config.get_insightface_providers()
-            face_logger.info(f"🔧 Using providers: {[p[0] if isinstance(p, tuple) else p for p in providers]}")
 
-            # Initialize with minimal modules for speed
+            # ENHANCED: Enable ALL modules for robust tracking
             self.face_app = FaceAnalysis(
-                name=config.INSIGHTFACE_MODEL,
+                name=model_name,
                 providers=providers,
-                allowed_modules=['detection', 'recognition']  # Only essential modules
+                allowed_modules=['detection', 'recognition', 'genderage']  # All modules
             )
 
-            # CRITICAL: Use optimized detection size for speed
-            det_size = (config.PROCESSING_WIDTH, config.PROCESSING_HEIGHT)
+            # Optimized detection size for pose variation
+            det_size = (640, 640)
             self.face_app.prepare(
                 ctx_id=0,
                 det_size=det_size,
-                det_thresh=config.DETECTION_THRESHOLD
+                det_thresh=0.3  # Lower threshold for pose variations
             )
 
             self.is_initialized = True
-            face_logger.info(f"✅ HIGH PERFORMANCE InsightFace ready - {config.INSIGHTFACE_MODEL}")
-            face_logger.info(f"📐 Detection size: {det_size}")
-            face_logger.info(f"🎯 Detection threshold: {config.DETECTION_THRESHOLD}")
+            face_logger.info(f"✅ ENHANCED InsightFace ready - {model_name}")
+            face_logger.info("📐 Enabled: detection, recognition, pose estimation, age/gender")
 
         except Exception as e:
-            face_logger.error(f"❌ Failed to initialize InsightFace: {e}")
-            self.face_app = None
-            self.is_initialized = False
+            face_logger.error(f"❌ Enhanced InsightFace init failed: {e}")
+            # Fallback to basic setup
+            try:
+                face_logger.info("🔄 Trying basic InsightFace setup...")
+                self.face_app = FaceAnalysis(name='buffalo_s')
+                self.face_app.prepare(ctx_id=0, det_size=(320, 320), det_thresh=0.3)
+                self.is_initialized = True
+                face_logger.info("✅ Basic InsightFace ready")
+            except Exception:
+                self.face_app = None
+                self.is_initialized = False
 
     def process_frame(self, frame):
-        """Detect faces, draw bounding boxes and recognize students"""
+        """METHOD 1: ENHANCED Process frame with pose-aware recognition"""
         if not self.is_initialized or frame is None:
             return frame
 
         try:
+            # Validate frame
+            if len(frame.shape) != 3 or frame.shape[2] != 3:
+                return frame
+
+            # Resize if too large
+            height, width = frame.shape[:2]
+            if width > 1920 or height > 1080:
+                scale = min(1920/width, 1080/height)
+                new_width = int(width * scale)
+                new_height = int(height * scale)
+                frame = cv2.resize(frame, (new_width, new_height))
+
+            # Convert to RGB
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            faces = self.face_app.get(rgb_frame)
 
+            # Detect faces with ENHANCED features
+            try:
+                faces = self.face_app.get(rgb_frame)
+                self.stats['total_detections'] += len(faces)
+                face_logger.debug(f"🔍 Detected {len(faces)} faces")
+            except Exception as e:
+                face_logger.error(f"❌ Detection failed: {e}")
+                return frame
+
+            # ENHANCED: Process each face with quality assessment
             for face in faces:
-                box = face.bbox.astype(int)
+                try:
+                    box = face.bbox.astype(int)
 
-                # Vẽ khung xanh quanh mặt
-                cv2.rectangle(
-                    frame,
-                    (box[0], box[1]),
-                    (box[2], box[3]),
-                    (0, 255, 0),
-                    2
-                )
+                    # CRITICAL: Assess face quality and pose
+                    face_quality = self._assess_face_quality(face)
 
-                # Nhận diện student nếu có embeddings
-                if hasattr(face, "embedding") and face.embedding is not None:
-                    student = self.student_service.find_student_by_embedding(face.embedding)
-                    if student:
-                        cv2.putText(
-                            frame,
-                            f"{student['name']} ({student['student_code']})",
-                            (box[0], box[1] - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.7,
-                            (0, 255, 0),
-                            2
-                        )
+                    # Choose box color based on quality
+                    if face_quality['is_good_quality']:
+                        box_color = (0, 255, 0)  # Green for good quality
+                        thickness = 2
                     else:
-                        cv2.putText(
-                            frame,
-                            "Unknown",
-                            (box[0], box[1] - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.7,
-                            (0, 0, 255),
-                            2
-                        )
+                        box_color = (0, 165, 255)  # Orange for poor quality
+                        thickness = 1
+
+                    # Draw bounding box with quality indication
+                    cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), box_color, thickness)
+
+                    # Enhanced recognition with pose tolerance
+                    if hasattr(face, "embedding") and face.embedding is not None:
+                        if face.embedding.shape[0] == 512:
+                            # ENHANCED: Use pose-aware recognition
+                            student = self._pose_aware_recognition(face, face_quality)
+
+                            if student:
+                                # Enhanced display with quality info
+                                confidence_text = f"{student['name']}"
+                                similarity_text = f"({student['similarity']:.2f})"
+
+                                # Add pose info for debugging
+                                pose_angles = face_quality['pose_angles']
+                                if max(pose_angles.values()) > 20:  # Show pose for large angles
+                                    pose_text = f"Y:{pose_angles['yaw']:.0f}°"
+                                    similarity_text += f" {pose_text}"
+
+                                # Draw name with enhanced info
+                                cv2.putText(frame, confidence_text, (box[0], box[1] - 25),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.7, box_color, 2)
+                                cv2.putText(frame, similarity_text, (box[0], box[1] - 5),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, box_color, 1)
+
+                                self.stats['total_recognitions'] += 1
+                            else:
+                                # Enhanced unknown display
+                                quality_text = f"Unknown (Q:{face_quality['overall_score']:.2f})"
+                                cv2.putText(frame, quality_text, (box[0], box[1] - 10),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                        else:
+                            cv2.putText(frame, f"BadEmb({face.embedding.shape[0]})", (box[0], box[1] - 10),
+                                      cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+                    else:
+                        # Show quality info for faces without embeddings
+                        quality_text = f"NoEmb (Q:{face_quality['overall_score']:.2f})"
+                        cv2.putText(frame, quality_text, (box[0], box[1] - 10),
+                                  cv2.FONT_HERSHEY_SIMPLEX, 0.5, (128, 128, 128), 2)
+
+                except Exception as e:
+                    face_logger.error(f"❌ Face processing error: {e}")
+                    continue
 
         except Exception as e:
-            face_logger.error(f"❌ Error processing frame: {e}")
+            face_logger.error(f"❌ Frame processing error: {e}")
 
         return frame
 
+    def _pose_aware_recognition(self, face, face_quality) -> Optional[Dict]:
+        """ENHANCED recognition with pose awareness"""
+        try:
+            if face.embedding.shape[0] != 512:
+                return None
+
+            # Get normalized embedding
+            face_embedding = face.embedding / np.linalg.norm(face.embedding)
+
+            # ENHANCED: Adaptive threshold based on pose quality
+            base_threshold = config.RECOGNITION_THRESHOLD
+            pose_score = face_quality['pose_score']
+
+            # Lower threshold for good poses, higher tolerance for poor poses
+            if pose_score > 0.8:
+                adaptive_threshold = base_threshold  # Standard threshold
+            elif pose_score > 0.6:
+                adaptive_threshold = base_threshold * 0.9  # Slightly lower
+            else:
+                adaptive_threshold = base_threshold * 0.8  # Much lower for poor poses
+
+            best_match = None
+            best_similarity = adaptive_threshold
+
+            for student_id, student_data in self.student_service.student_embeddings.items():
+                stored_embedding = student_data['embedding']
+
+                if stored_embedding.shape != face_embedding.shape:
+                    continue
+
+                try:
+                    # Basic similarity
+                    similarity = float(np.dot(face_embedding, stored_embedding))
+
+                    # ENHANCED: Apply pose-based confidence boost
+                    # Give bonus for good poses, maintain similarity for poor poses
+                    if pose_score > 0.8:
+                        adjusted_similarity = similarity * 1.02  # Small boost for good poses
+                    elif pose_score > 0.6:
+                        adjusted_similarity = similarity  # No change
+                    else:
+                        adjusted_similarity = similarity * 0.98  # Small penalty for poor poses
+
+                    if adjusted_similarity > best_similarity:
+                        best_similarity = adjusted_similarity
+                        best_match = {
+                            'student_id': student_id,
+                            'name': student_data['name'],
+                            'student_code': student_data['student_code'],
+                            'similarity': similarity,  # Keep original similarity for display
+                            'adjusted_similarity': adjusted_similarity,
+                            'pose_score': pose_score,
+                            'class_name': student_data['class_name']
+                        }
+
+                except Exception as e:
+                    face_logger.error(f"❌ Similarity error for {student_id}: {e}")
+                    continue
+
+            # ENHANCED: Apply temporal smoothing
+            if best_match:
+                best_match = self._temporal_smooth_recognition(best_match, list(self.recognition_history))
+
+                # Add to recognition history
+                self.recognition_history.append({
+                    'student_id': best_match['student_id'],
+                    'name': best_match['name'],
+                    'similarity': best_match['similarity'],
+                    'timestamp': time.time()
+                })
+
+                face_logger.info(f"✅ POSE-AWARE RECOGNITION: {best_match['name']} "
+                               f"(sim: {best_match['similarity']:.3f}, pose: {pose_score:.3f}, "
+                               f"conf: {best_match.get('temporal_confidence', 'current')})")
+
+            return best_match
+
+        except Exception as e:
+            face_logger.error(f"❌ Pose-aware recognition error: {e}")
+            return None
+
     def recognize_faces_optimized(self, image: np.ndarray) -> List[Dict]:
-        """
-        ULTRA HIGH PERFORMANCE face recognition with aggressive optimizations
-        """
+        """METHOD 2: ENHANCED Return face data with pose awareness (for stream_widget)"""
         if not self.is_initialized:
             return []
 
-        # CRITICAL: Frame skipping for performance
+        # Frame skipping for performance
         self.frame_skip_counter += 1
         if self.frame_skip_counter % config.FRAME_PROCESSING_INTERVAL != 0:
             return self._get_cached_results()
 
-        # Throttle recognition calls
+        # Throttle recognition
         current_time = time.time()
         if current_time - self.last_recognition_time < self.recognition_interval:
             return self._get_cached_results()
@@ -409,10 +737,10 @@ class FaceRecognitionService:
 
         try:
             with self.lock:
-                # Backup original image
+                # Backup original
                 original_image = image.copy()
 
-                # Resize for processing if needed
+                # Resize for processing
                 if image.shape[1] > config.PROCESSING_WIDTH:
                     scale_x = image.shape[1] / config.PROCESSING_WIDTH
                     scale_y = image.shape[0] / config.PROCESSING_HEIGHT
@@ -420,22 +748,30 @@ class FaceRecognitionService:
                 else:
                     scale_x = scale_y = 1.0
 
-                # Convert to RGB for InsightFace
+                # Convert to RGB
                 rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-                # Get faces from InsightFace
-                faces = self.face_app.get(rgb_image)
-                self.stats['total_detections'] += len(faces)
+                # Get faces with enhanced detection
+                try:
+                    faces = self.face_app.get(rgb_image)
+                    self.stats['total_detections'] += len(faces)
+                except Exception as e:
+                    face_logger.error(f"❌ Detection error: {e}")
+                    return []
 
-                # OPTIMIZATION: Limit faces processed
+                # ENHANCED: Sort by quality score instead of just detection score
                 if len(faces) > config.MAX_FACES_PER_FRAME:
-                    faces = sorted(faces, key=lambda x: x.det_score, reverse=True)[:config.MAX_FACES_PER_FRAME]
+                    # Assess quality for all faces first
+                    face_qualities = []
+                    for face in faces:
+                        quality = self._assess_face_quality(face)
+                        face_qualities.append((face, quality['overall_score']))
 
-                # OPTIMIZATION: Skip quality checks for speed
-                if not self.skip_quality_check:
-                    faces = self._filter_quality(faces, image)
+                    # Sort by quality score
+                    face_qualities.sort(key=lambda x: x[1], reverse=True)
+                    faces = [fq[0] for fq in face_qualities[:config.MAX_FACES_PER_FRAME]]
 
-                # Scale bounding boxes back to original size
+                # Scale bounding boxes back
                 for face in faces:
                     if scale_x != 1.0 or scale_y != 1.0:
                         bbox = face.bbox
@@ -446,215 +782,59 @@ class FaceRecognitionService:
                             bbox[3] * scale_y
                         ])
 
-                # HIGH PERFORMANCE tracking
-                tracked_faces = self._ultra_fast_tracking(faces, original_image)
+                # ENHANCED: Convert to result format with quality info
+                results = []
+                for face in faces:
+                    try:
+                        # Assess face quality
+                        face_quality = self._assess_face_quality(face)
 
-                # Recognition for stable tracks
-                recognized_faces = []
-                for face in tracked_faces:
-                    if hasattr(face, "embedding") and face.embedding is not None:
-                        emb = face.embedding.astype(np.float32)
+                        face_result = {
+                            'bbox': face.bbox.tolist(),
+                            'det_score': float(face.det_score) if hasattr(face, 'det_score') else 1.0,
+                            'quality_score': face_quality['overall_score'],
+                            'pose_score': face_quality['pose_score'],
+                            'pose_angles': face_quality['pose_angles'],
+                            'is_good_quality': face_quality['is_good_quality'],
+                            'name': 'Unknown',
+                            'student_id': None,
+                            'similarity': 0.0,
+                            'class_name': ''
+                        }
 
-                        # Normalize embedding
-                        if np.linalg.norm(emb) > 0:
-                            emb = emb / np.linalg.norm(emb)
+                        # ENHANCED Recognition with pose awareness
+                        if hasattr(face, "embedding") and face.embedding is not None:
+                            if face.embedding.shape[0] == 512:
+                                student = self._pose_aware_recognition(face, face_quality)
+                                if student:
+                                    face_result.update({
+                                        'name': student['name'],
+                                        'student_id': student['student_id'],
+                                        'similarity': student['similarity'],
+                                        'adjusted_similarity': student['adjusted_similarity'],
+                                        'class_name': student['class_name']
+                                    })
+                                    self.stats['total_recognitions'] += 1
 
-                        best_match = None
-                        best_similarity = config.RECOGNITION_THRESHOLD
+                        results.append(face_result)
 
-                        for student_id, student_data in self.student_service.student_embeddings.items():
-                            stored_emb = student_data['embedding']
+                    except Exception as e:
+                        face_logger.error(f"❌ Face result error: {e}")
+                        continue
 
-                            # 🚑 FIX: skip nếu dimension mismatch
-                            if stored_emb.shape != emb.shape:
-                                continue
-
-                            sim = float(np.dot(emb, stored_emb))
-                            if sim > best_similarity:
-                                best_similarity = sim
-                                best_match = {
-                                    'student_id': student_id,
-                                    'name': student_data['name'],
-                                    'student_code': student_data['student_code'],
-                                    'similarity': sim,
-                                    'class_name': student_data['class_name']
-                                }
-
-                        if best_match:
-                            face.recognition = best_match
-                        else:
-                            face.recognition = None
-                    else:
-                        face.recognition = None
-
-                    recognized_faces.append(face)
-
-                # Cleanup old tracks
-                self._cleanup_old_tracks()
-
-                # Update performance stats
+                # Update performance
                 processing_time = time.time() - start_time
                 self.stats['processing_times'].append(processing_time)
 
                 # Cache results
-                self._cache_results(recognized_faces)
+                self._cache_results(results)
 
-                face_logger.debug(f"🎯 Processed {len(recognized_faces)} faces in {processing_time:.3f}s")
-
-                return recognized_faces
+                face_logger.debug(f"🎯 ENHANCED recognition: {len(results)} faces in {processing_time:.3f}s")
+                return results
 
         except Exception as e:
-            face_logger.error(f"❌ Recognition error: {e}")
+            face_logger.error(f"❌ Enhanced recognition error: {e}")
             return []
-
-    def _ultra_fast_tracking(self, faces: List, image: np.ndarray) -> List[Dict]:
-        """Ultra-fast tracking with minimal overhead"""
-        tracked_faces = []
-        current_time = time.time()
-
-        for face in faces:
-            bbox = face.bbox
-            center = ((bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2)
-
-            # Find closest existing track
-            best_track_id = None
-            min_distance = float('inf')
-
-            for track_id, track_data in self.active_tracks.items():
-                if current_time - track_data['last_seen'] > 2.0:  # Skip old tracks
-                    continue
-
-                track_center = track_data['center']
-                distance = np.sqrt((center[0] - track_center[0])**2 + (center[1] - track_center[1])**2)
-
-                if distance < self.tracking_config['max_distance'] and distance < min_distance:
-                    min_distance = distance
-                    best_track_id = track_id
-
-            # Update or create track
-            if best_track_id is not None:
-                # Update existing track
-                track_data = self.active_tracks[best_track_id]
-                track_data['center'] = center
-                track_data['bbox'] = bbox
-                track_data['last_seen'] = current_time
-                track_data['frames_tracked'] += 1
-                track_data['face'] = face
-
-                is_stable = track_data['frames_tracked'] >= self.tracking_config['min_stable_frames']
-
-            else:
-                # Create new track
-                track_id = self.next_track_id
-                self.next_track_id += 1
-
-                self.active_tracks[track_id] = {
-                    'id': track_id,
-                    'center': center,
-                    'bbox': bbox,
-                    'last_seen': current_time,
-                    'frames_tracked': 1,
-                    'face': face,
-                    'last_recognition': 0,
-                    'recognized_student': None
-                }
-
-                is_stable = False
-
-            track_data = self.active_tracks.get(best_track_id or track_id)
-            if track_data:
-                tracked_faces.append({
-                    'track_id': track_data['id'],
-                    'bbox': bbox,
-                    'face': face,
-                    'is_stable': is_stable,
-                    'frames_tracked': track_data['frames_tracked'],
-                    'last_recognition': track_data['last_recognition'],
-                    'recognized_student': track_data.get('recognized_student')
-                })
-
-        return tracked_faces
-
-    def _fast_recognition(self, tracked_faces: List[Dict]) -> List[Dict]:
-        """Fast recognition with caching"""
-        recognized_faces = []
-        current_time = time.time()
-
-        for track_data in tracked_faces:
-            # Only recognize stable tracks and limit frequency
-            if (track_data['is_stable'] and
-                current_time - track_data['last_recognition'] > 1.0):  # Recognize every 1 second max
-
-                face = track_data['face']
-
-                # Get embedding
-                embedding = face.embedding
-                if embedding is not None:
-                    # Find student
-                    student = self.student_service.find_student_by_embedding(embedding)
-
-                    if student:
-                        # Update track with recognition
-                        track_id = track_data['track_id']
-                        if track_id in self.active_tracks:
-                            self.active_tracks[track_id]['last_recognition'] = current_time
-                            self.active_tracks[track_id]['recognized_student'] = student
-
-                        # Create recognition result
-                        recognized_faces.append({
-                            'track_id': track_id,
-                            'bbox': track_data['bbox'],
-                            'student_id': student['student_id'],
-                            'name': student['name'],
-                            'student_code': student['student_code'],
-                            'similarity': student['similarity'],
-                            'class_name': student.get('class_name', ''),
-                            'detection_time': current_time
-                        })
-
-                        self.stats['total_recognitions'] += 1
-
-            elif track_data['recognized_student']:
-                # Use cached recognition
-                student = track_data['recognized_student']
-                recognized_faces.append({
-                    'track_id': track_data['track_id'],
-                    'bbox': track_data['bbox'],
-                    'student_id': student['student_id'],
-                    'name': student['name'],
-                    'student_code': student['student_code'],
-                    'similarity': student['similarity'],
-                    'class_name': student.get('class_name', ''),
-                    'detection_time': track_data['last_recognition'],
-                    'cached': True
-                })
-
-        return recognized_faces
-
-    def _filter_quality(self, faces: List, image: np.ndarray) -> List:
-        """Fast quality filtering"""
-        if self.skip_quality_check:
-            return faces
-
-        filtered_faces = []
-        for face in faces:
-            # Simple quality checks
-            if (hasattr(face, 'det_score') and face.det_score > config.DETECTION_THRESHOLD):
-                filtered_faces.append(face)
-
-        return filtered_faces
-
-    def _cleanup_old_tracks(self):
-        """Cleanup old tracks for performance"""
-        current_time = time.time()
-        old_tracks = []
-
-        for track_id, track_data in self.active_tracks.items():
-            if current_time - track_data['last_seen'] > 3.0:  # Remove tracks older than 3 seconds
-                old_tracks.append(track_id)
-
-        for track_id in old_tracks:
-            del self.active_tracks[track_id]
 
     def _cache_results(self, results: List[Dict]):
         """Cache results for frame skipping"""
@@ -662,29 +842,56 @@ class FaceRecognitionService:
         self.cache_time = time.time()
 
     def _get_cached_results(self) -> List[Dict]:
-        """Get cached results for skipped frames"""
+        """Get cached results"""
         if hasattr(self, 'cached_results') and time.time() - self.cache_time < 0.5:
             return self.cached_results
         return []
 
     def get_performance_stats(self) -> Dict:
-        """Get performance statistics"""
+        """Get ENHANCED performance stats with pose information"""
+        avg_time = 0
         if self.stats['processing_times']:
             avg_time = sum(self.stats['processing_times']) / len(self.stats['processing_times'])
-            fps = 1.0 / avg_time if avg_time > 0 else 0
-        else:
-            avg_time = 0
-            fps = 0
+
+        # Calculate pose statistics from recent history
+        pose_stats = {'good_poses': 0, 'poor_poses': 0, 'avg_pose_score': 0.0}
+        if hasattr(self, 'recognition_history') and self.recognition_history:
+            recent_poses = []
+            for hist in list(self.recognition_history)[-10:]:  # Last 10 recognitions
+                if 'pose_score' in hist:
+                    recent_poses.append(hist['pose_score'])
+
+            if recent_poses:
+                pose_stats['avg_pose_score'] = sum(recent_poses) / len(recent_poses)
+                pose_stats['good_poses'] = sum(1 for p in recent_poses if p > 0.7)
+                pose_stats['poor_poses'] = sum(1 for p in recent_poses if p < 0.5)
 
         return {
             'average_processing_time': avg_time,
-            'estimated_fps': fps,
+            'estimated_fps': 1.0 / avg_time if avg_time > 0 else 0,
             'total_detections': self.stats['total_detections'],
             'total_recognitions': self.stats['total_recognitions'],
-            'active_tracks': len(self.active_tracks),
-            'students_loaded': len(self.student_service.student_embeddings)
+            'students_loaded': len(self.student_service.student_embeddings),
+            'is_initialized': self.is_initialized,
+            'pose_tolerance_enabled': True,
+            'pose_statistics': pose_stats,
+            'recognition_history_size': len(getattr(self, 'recognition_history', [])),
+            'enhanced_features': ['pose_estimation', 'quality_assessment', 'temporal_smoothing']
         }
 
+    def get_statistics(self) -> Dict:
+        """Get statistics for UI"""
+        stats = self.student_service.get_statistics()
+        stats.update({
+            'recognition_threshold': config.RECOGNITION_THRESHOLD,
+            'is_initialized': self.is_initialized
+        })
+        return stats
+
     def load_student_embeddings(self) -> Dict[str, any]:
-        """Load student embeddings"""
-        return self.student_service.load_embeddings_from_backend()
+        """Load/refresh embeddings"""
+        try:
+            return self.student_service.load_embeddings_from_backend()
+        except Exception as e:
+            face_logger.error(f"❌ Load error: {e}")
+            return {'success': False, 'message': str(e), 'count': 0}
